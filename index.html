@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>República ETANOIS – UNIFEI Itabira</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black:   #0a0a0a;
+      --deep:    #111111;
+      --card:    #181818;
+      --yellow:  #F5C400;
+      --gold:    #D4A900;
+      --white:   #F0EDE6;
+      --gray:    #888;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-head:    'Barlow Condensed', sans-serif;
+      --font-body:    'Barlow', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+    }
+    ::selection { background: var(--yellow); color: var(--black); }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--yellow); border-radius: 3px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(10,10,10,.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid var(--yellow);
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      letter-spacing: 4px;
+      color: var(--yellow);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--white); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-family: var(--font-head);
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--yellow); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 80px;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: 
+        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(245,196,0,.12) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 20% 80%, rgba(245,196,0,.06) 0%, transparent 60%),
+        var(--black);
+    }
+    /* diagonal stripe pattern */
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(
+        -45deg,
+        transparent, transparent 40px,
+        rgba(245,196,0,.03) 40px, rgba(245,196,0,.03) 41px
+      );
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-tag {
+      display: inline-block;
+      font-family: var(--font-head);
+      font-size: .85rem;
+      font-weight: 700;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--yellow);
+      border: 1px solid var(--yellow);
+      padding: .4rem 1.2rem;
+      margin-bottom: 1.5rem;
+      animation: fadeUp .8s ease both;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(6rem, 18vw, 16rem);
+      line-height: .88;
+      letter-spacing: -2px;
+      color: var(--white);
+      animation: fadeUp .9s .1s ease both;
+    }
+    .hero-title .yellow { color: var(--yellow); }
+    .hero-subtitle {
+      font-family: var(--font-head);
+      font-size: clamp(1rem, 2.5vw, 1.6rem);
+      font-weight: 400;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-top: 1rem;
+      animation: fadeUp 1s .2s ease both;
+    }
+    .hero-divider {
+      width: 80px; height: 3px;
+      background: var(--yellow);
+      margin: 2rem auto;
+      animation: scaleX .8s .3s ease both;
+      transform-origin: left;
+    }
+    .hero-stats {
+      display: flex; gap: 4rem; justify-content: center; flex-wrap: wrap;
+      animation: fadeUp 1s .4s ease both;
+    }
+    .stat { text-align: center; }
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      color: var(--yellow);
+      line-height: 1;
+    }
+    .stat-label {
+      font-family: var(--font-head);
+      font-size: .8rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-top: .3rem;
+    }
+    .hero-cta {
+      margin-top: 3rem;
+      display: flex; gap: 1rem; justify-content: center;
+      animation: fadeUp 1s .5s ease both;
+    }
+    .btn {
+      font-family: var(--font-head);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: .9rem 2.4rem;
+      border: 2px solid var(--yellow);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all .25s;
+      display: inline-block;
+    }
+    .btn-primary { background: var(--yellow); color: var(--black); }
+    .btn-primary:hover { background: var(--gold); border-color: var(--gold); }
+    .btn-outline { background: transparent; color: var(--yellow); }
+    .btn-outline:hover { background: var(--yellow); color: var(--black); }
+
+    /* ── SECTION BASE ── */
+    section { padding: 7rem 2rem; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .section-label {
+      font-family: var(--font-head);
+      font-size: .8rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: .8rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      line-height: 1;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+    .section-title .accent { color: var(--yellow); }
+    .section-divider {
+      width: 60px; height: 3px;
+      background: var(--yellow);
+      margin-bottom: 2.5rem;
+    }
+    .section-text {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #bbb;
+      max-width: 620px;
+    }
+
+    /* ── SOBRE ── */
+    #sobre { background: var(--deep); }
+    .sobre-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .sobre-image {
+      position: relative;
+    }
+    .sobre-image-frame {
+      width: 100%;
+      aspect-ratio: 4/5;
+      background: var(--card);
+      border: 2px solid var(--yellow);
+      position: relative;
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .sobre-image-frame img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .sobre-image-placeholder {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 1rem; color: var(--gray);
+    }
+    .sobre-image-placeholder svg { opacity: .3; }
+    .sobre-image-placeholder p {
+      font-family: var(--font-head);
+      font-size: .85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: .5;
+    }
+    .sobre-badge {
+      position: absolute; bottom: -1.5rem; right: -1.5rem;
+      width: 130px; height: 130px;
+      background: var(--yellow);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+    }
+    .sobre-badge-year {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      color: var(--black);
+      line-height: 1;
+    }
+    .sobre-badge-label {
+      font-family: var(--font-head);
+      font-size: .65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--black);
+    }
+    .sobre-features {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.5rem; margin-top: 2.5rem;
+    }
+    .feature-card {
+      background: var(--card);
+      border-left: 3px solid var(--yellow);
+      padding: 1.2rem 1.5rem;
+    }
+    .feature-card h4 {
+      font-family: var(--font-head);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: .5rem;
+    }
+    .feature-card p { font-size: .9rem; color: #999; line-height: 1.6; }
+
+    /* ── FUTEBOL ── */
+    #futebol {
+      background: var(--black);
+      position: relative;
+      overflow: hidden;
+    }
+    #futebol::before {
+      content: 'FUTEBOL';
+      position: absolute;
+      font-family: var(--font-display);
+      font-size: 22vw;
+      color: rgba(245,196,0,.04);
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      white-space: nowrap;
+      pointer-events: none;
+      letter-spacing: -5px;
+    }
+    .futebol-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+      position: relative;
+    }
+    .futebol-card {
+      background: var(--card);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      border: 1px solid #222;
+      transition: border-color .3s, transform .3s;
+    }
+    .futebol-card:hover {
+      border-color: var(--yellow);
+      transform: translateY(-6px);
+    }
+    .futebol-card .icon {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .futebol-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      color: var(--yellow);
+      margin-bottom: .8rem;
+    }
+    .futebol-card p { font-size: .95rem; color: #999; line-height: 1.7; }
+
+    /* ── NOSSA CASA ── */
+    #casa { background: var(--deep); }
+    .casa-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .casa-info-block { margin-bottom: 2rem; }
+    .casa-info-block h4 {
+      font-family: var(--font-head);
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: .6rem;
+    }
+    .casa-info-block p { color: #aaa; line-height: 1.8; }
+    .casa-edit-note {
+      background: rgba(245,196,0,.08);
+      border: 1px dashed var(--yellow);
+      padding: 1.5rem;
+      margin-top: 1rem;
+      border-radius: 2px;
+    }
+    .casa-edit-note p {
+      font-family: var(--font-head);
+      font-size: .85rem;
+      letter-spacing: 1px;
+      color: var(--yellow);
+      opacity: .7;
+    }
+    .casa-photo-main {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: var(--card);
+      border: 2px solid #222;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .casa-photo-main img { width: 100%; height: 100%; object-fit: cover; }
+    .photo-placeholder {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 1rem; color: var(--gray);
+      text-align: center; padding: 2rem;
+    }
+    .photo-placeholder span {
+      font-family: var(--font-head);
+      font-size: .85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: .5;
+    }
+    .casa-photo-sub {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1rem; margin-top: 1rem;
+    }
+    .casa-photo-sub-item {
+      aspect-ratio: 1;
+      background: var(--card);
+      border: 2px solid #222;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .casa-photo-sub-item img { width: 100%; height: 100%; object-fit: cover; }
+    .casa-photo-sub-item .photo-placeholder { padding: 1rem; }
+    .casa-photo-sub-item .photo-placeholder span { font-size: .7rem; }
+
+    /* ── GALERIA ── */
+    #galeria { background: var(--black); }
+    .galeria-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 240px;
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+    .galeria-item {
+      background: var(--card);
+      border: 1px solid #1e1e1e;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+    .galeria-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .5s;
+    }
+    .galeria-item:hover img { transform: scale(1.08); }
+    .galeria-item.tall { grid-row: span 2; }
+    .galeria-item.wide { grid-column: span 2; }
+    .galeria-overlay {
+      position: absolute; inset: 0;
+      background: rgba(10,10,10,.6);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: .5rem;
+    }
+    .galeria-overlay svg { opacity: .4; }
+    .galeria-overlay span {
+      font-family: var(--font-head);
+      font-size: .75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gray);
+      opacity: .7;
+    }
+    .galeria-item:hover .galeria-overlay { background: rgba(245,196,0,.15); }
+    .galeria-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,.8));
+      padding: 1.5rem 1rem .8rem;
+      transform: translateY(100%);
+      transition: transform .3s;
+    }
+    .galeria-item:hover .galeria-caption { transform: none; }
+    .galeria-caption span {
+      font-family: var(--font-head);
+      font-size: .85rem;
+      color: var(--yellow);
+      letter-spacing: 1px;
+    }
+
+    /* ── RESENHA ── */
+    #resenha {
+      background: var(--yellow);
+      padding: 6rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    #resenha::before {
+      content: '⚽';
+      position: absolute; font-size: 20vw;
+      opacity: .07; top: 50%; left: 10%;
+      transform: translateY(-50%);
+    }
+    #resenha::after {
+      content: '🍺';
+      position: absolute; font-size: 20vw;
+      opacity: .07; top: 50%; right: 10%;
+      transform: translateY(-50%);
+    }
+    #resenha .section-title { color: var(--black); position: relative; }
+    #resenha .section-label { color: var(--black); opacity: .6; }
+    #resenha .section-divider { background: var(--black); margin: 0 auto 2.5rem; }
+    #resenha .section-text {
+      color: rgba(0,0,0,.7);
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.2rem;
+      position: relative;
+    }
+    #resenha .btn-outline {
+      border-color: var(--black);
+      color: var(--black);
+      margin-top: 2.5rem;
+      position: relative;
+    }
+    #resenha .btn-outline:hover { background: var(--black); color: var(--yellow); }
+
+    /* ── INSTAGRAM ── */
+    #instagram { background: var(--deep); text-align: center; }
+    .instagram-handle {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      color: var(--yellow);
+      margin: 1rem 0 2rem;
+    }
+    .insta-link {
+      display: inline-flex; align-items: center; gap: .8rem;
+      font-family: var(--font-head);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--yellow);
+      text-decoration: none;
+      border: 2px solid var(--yellow);
+      padding: 1rem 2.5rem;
+      transition: all .25s;
+    }
+    .insta-link:hover { background: var(--yellow); color: var(--black); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      border-top: 2px solid var(--yellow);
+      padding: 3rem 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      letter-spacing: 3px;
+      color: var(--yellow);
+    }
+    .footer-logo span { color: var(--white); }
+    .footer-info {
+      text-align: center;
+      font-family: var(--font-head);
+      font-size: .85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray);
+      line-height: 1.9;
+    }
+    .footer-social a {
+      font-family: var(--font-head);
+      font-size: .9rem;
+      letter-spacing: 2px;
+      color: var(--yellow);
+      text-decoration: none;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scaleX {
+      from { transform: scaleX(0); }
+      to   { transform: scaleX(1); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .sobre-grid, .casa-content { grid-template-columns: 1fr; gap: 3rem; }
+      .futebol-grid { grid-template-columns: 1fr; }
+      .galeria-grid { grid-template-columns: 1fr 1fr; }
+      footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+    }
+    @media (max-width: 600px) {
+      .galeria-grid { grid-template-columns: 1fr; }
+      .galeria-item.tall, .galeria-item.wide { grid-column: span 1; grid-row: span 1; }
+      .hero-stats { gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">ETANOIS<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#futebol">Futebol</a></li>
+      <li><a href="#casa">Nossa Casa</a></li>
+      <li><a href="#galeria">Galeria</a></li>
+      <li><a href="#resenha">Resenha</a></li>
+      <li><a href="#instagram">Contato</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-tag">República Universitária · UNIFEI Itabira</div>
+      <h1 class="hero-title">
+        <span class="yellow">ETA</span>NOIS
+      </h1>
+      <p class="hero-subtitle">Bairro Amazonas · Itabira – MG</p>
+      <div class="hero-divider"></div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-number">2012</div>
+          <div class="stat-label">Fundação</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">+12</div>
+          <div class="stat-label">Anos de história</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">∞</div>
+          <div class="stat-label">Resenhas</div>
+        </div>
+      </div>
+      <div class="hero-cta">
+        <a href="#sobre" class="btn btn-primary">Conheça a Rep</a>
+        <a href="#galeria" class="btn btn-outline">Ver Fotos</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre">
+    <div class="container">
+      <div class="sobre-grid">
+        <div class="sobre-image">
+          <div class="sobre-image-frame">
+            <!-- Substituir pelo src da foto da república -->
+            <div class="sobre-image-placeholder">
+              <svg width="60" height="60" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21 15 16 10 5 21"/>
+              </svg>
+              <p>Foto da República</p>
+            </div>
+          </div>
+          <div class="sobre-badge">
+            <div class="sobre-badge-year">12</div>
+            <div class="sobre-badge-label">Anos</div>
+          </div>
+        </div>
+        <div class="sobre-text">
+          <div class="section-label">Quem somos</div>
+          <h2 class="section-title">Uma lenda <span class="accent">desde 2012</span></h2>
+          <div class="section-divider"></div>
+          <p class="section-text">
+            A República ETANOIS nasceu em 2012 no coração de Itabira, no bairro Amazonas, e desde então é sinônimo de amizade, futebol e as melhores resenhas da UNIFEI. Somos uma república masculina de estudantes da Universidade Federal de Itajubá – Campus Itabira, onde cada morador vira família.
+          </p>
+          <p class="section-text" style="margin-top: 1rem;">
+            Mais de uma década de história, muitos campeonatos, incontáveis churrascadas e noites inesquecíveis. Preto e amarelo correm nas veias desta casa.
+          </p>
+          <div class="sobre-features">
+            <div class="feature-card">
+              <h4>⚽ Futebol</h4>
+              <p>Sempre na briga pelo título no InterRep e além das quatro linhas.</p>
+            </div>
+            <div class="feature-card">
+              <h4>🎉 Resenha</h4>
+              <p>A melhor resenha do campus, desde a Semana Federal até o fim de semana.</p>
+            </div>
+            <div class="feature-card">
+              <h4>🏠 Casa</h4>
+              <p>Um lar para estudantes da UNIFEI Itabira, cheio de histórias e amizades.</p>
+            </div>
+            <div class="feature-card">
+              <h4>🎓 Unifei</h4>
+              <p>Orgulhosamente ligados ao campus Itabira desde o primeiro dia de aulas.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FUTEBOL -->
+  <section id="futebol">
+    <div class="container">
+      <div class="section-label">O esporte que nos une</div>
+      <h2 class="section-title">⚽ <span class="accent">Futebol</span> é religião</h2>
+      <div class="section-divider"></div>
+      <p class="section-text">
+        Na ETANOIS, o futebol não é só lazer — é cultura. Do racha no campo ao InterRep, o jogo sempre foi parte da nossa identidade. Preto e amarelo em campo como na vida.
+      </p>
+      <div class="futebol-grid">
+        <div class="futebol-card">
+          <span class="icon">🏆</span>
+          <h3>InterRep</h3>
+          <p>Disputamos com garra o campeonato de futebol entre as repúblicas da UNIFEI Itabira, nosso maior torneio.</p>
+        </div>
+        <div class="futebol-card">
+          <span class="icon">⚽</span>
+          <h3>Rachão</h3>
+          <p>Toda semana tem bola rolando. O rachão da república é sagrado e sempre termina com muito debate tático.</p>
+        </div>
+        <div class="futebol-card">
+          <span class="icon">📺</span>
+          <h3>Torcida</h3>
+          <p>Jogo do Brasil, do time do coração ou qualquer clássico — a rep vira sede oficial da torcida com churrasco e tudo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOSSA CASA -->
+  <section id="casa">
+    <div class="container">
+      <div class="section-label">Onde tudo acontece</div>
+      <h2 class="section-title">Nossa <span class="accent">Casa</span></h2>
+      <div class="section-divider"></div>
+      <div class="casa-content">
+        <div>
+          <div class="casa-info-block">
+            <h4>📍 Localização</h4>
+            <p>Bairro Amazonas, Itabira – MG. A dois passos do campus da UNIFEI e no coração da vida universitária da cidade.</p>
+          </div>
+          <div class="casa-info-block">
+            <h4>🏠 Estrutura</h4>
+            <p><!-- Adicione os detalhes da casa: número de quartos, área comum, churrasqueira, etc. -->
+            Uma casa pensada para a vida universitária, com espaços coletivos para resenha, estudo e confraternização.</p>
+          </div>
+          <div class="casa-info-block">
+            <h4>📢 Vagas</h4>
+            <p>Interesse em morar na ETANOIS? Entre em contato pelo nosso Instagram e venha fazer parte dessa história.</p>
+          </div>
+          <div class="casa-edit-note">
+            <p>✏️ Área reservada para você adicionar mais detalhes sobre a casa — quartos, área de lazer, regras, diferenciais da república, etc.</p>
+          </div>
+        </div>
+        <div>
+          <div class="casa-photo-main">
+            <!-- Substituir src pela foto principal da casa -->
+            <div class="photo-placeholder">
+              <svg width="50" height="50" fill="none" stroke="#555" stroke-width="1.5" viewBox="0 0 24 24">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+              <span>Foto da Fachada</span>
+            </div>
+          </div>
+          <div class="casa-photo-sub">
+            <div class="casa-photo-sub-item">
+              <div class="photo-placeholder">
+                <svg width="30" height="30" fill="none" stroke="#555" stroke-width="1.5" viewBox="0 0 24 24">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+                  <polyline points="21 15 16 10 5 21"/>
+                </svg>
+                <span>Área interna</span>
+              </div>
+            </div>
+            <div class="casa-photo-sub-item">
+              <div class="photo-placeholder">
+                <svg width="30" height="30" fill="none" stroke="#555" stroke-width="1.5" viewBox="0 0 24 24">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+                  <polyline points="21 15 16 10 5 21"/>
+                </svg>
+                <span>Churrasqueira</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIA -->
+  <section id="galeria">
+    <div class="container">
+      <div class="section-label">Memórias que ficam</div>
+      <h2 class="section-title">Galeria <span class="accent">de Fotos</span></h2>
+      <div class="section-divider"></div>
+      <p class="section-text">Os melhores momentos da república, dentro e fora de campo.</p>
+
+      <div class="galeria-grid">
+        <!-- Item 1: tall -->
+        <div class="galeria-item tall">
+          <!-- <img src="fotos/foto1.jpg" alt="Resenha ETANOIS" /> -->
+          <div class="galeria-overlay">
+            <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            <span>Adicionar foto</span>
+          </div>
+          <div class="galeria-caption"><span>Resenha ETANOIS</span></div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="galeria-item">
+          <div class="galeria-overlay">
+            <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            <span>Adicionar foto</span>
+          </div>
+          <div class="galeria-caption"><span>Futebol na veia</span></div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="galeria-item">
+          <div class="galeria-overlay">
+            <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            <span>Adicionar foto</span>
+          </div>
+          <div class="galeria-caption"><span>Time da república</span></div>
+        </div>
+
+        <!-- Item 4: wide -->
+        <div class="galeria-item wide">
+          <div class="galeria-overlay">
+            <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            <span>Adicionar foto</span>
+          </div>
+          <div class="galeria-caption"><span>Semana Federal</span></div>
+        </div>
+
+        <!-- Item 5 -->
+        <div class="galeria-item">
+          <div class="galeria-overlay">
+            <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            <span>Adicionar foto</span>
+          </div>
+          <div class="galeria-caption"><span>Turma de 2023</span></div>
+        </div>
+
+        <!-- Item 6 -->
+        <div class="galeria-item">
+          <div class="galeria-overlay">
+            <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            <span>Adicionar foto</span>
+          </div>
+          <div class="galeria-caption"><span>Churrasco da rep</span></div>
+        </div>
+
+        <!-- Item 7 -->
+        <div class="galeria-item">
+          <div class="galeria-overlay">
+            <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            <span>Adicionar foto</span>
+          </div>
+          <div class="galeria-caption"><span>Festa de fundação</span></div>
+        </div>
+
+        <!-- Item 8: tall -->
+        <div class="galeria-item tall">
+          <div class="galeria-overlay">
+            <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            <span>Adicionar foto</span>
+          </div>
+          <div class="galeria-caption"><span>InterRep</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESENHA BANNER -->
+  <section id="resenha">
+    <div class="section-label">O que melhor sabemos fazer</div>
+    <h2 class="section-title">A melhor resenha<br>do campus</h2>
+    <div class="section-divider"></div>
+    <p class="section-text">
+      Da Semana Federal às noites de sexta, a ETANOIS sempre foi referência em receber bem. Open bar, muito sertanejo, eletrônica e a galera mais animada de Itabira. Quem veio uma vez, sempre quer voltar.
+    </p>
+    <a href="https://www.instagram.com/repetanoisunifei/" target="_blank" class="btn btn-outline">
+      Ver eventos no Instagram
+    </a>
+  </section>
+
+  <!-- INSTAGRAM -->
+  <section id="instagram">
+    <div class="container">
+      <div class="section-label">Nos siga</div>
+      <p class="instagram-handle">@repetanoisunifei</p>
+      <p class="section-text" style="margin: 0 auto 2.5rem; color: #888;">
+        Acompanhe os momentos da república, eventos, jogos e a resenha do dia a dia no nosso Instagram.
+      </p>
+      <a href="https://www.instagram.com/repetanoisunifei/" target="_blank" class="insta-link">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+        Seguir no Instagram
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">ETANOIS<span>.</span></div>
+    <div class="footer-info">
+      República ETANOIS · UNIFEI Campus Itabira<br>
+      Bairro Amazonas · Itabira – MG<br>
+      Desde 2012 · Preto e Amarelo
+    </div>
+    <div class="footer-social">
+      <a href="https://www.instagram.com/repetanoisunifei/" target="_blank">
+        @repetanoisunifei
+      </a>
+    </div>
+  </footer>
+
+</body>
+</html>
