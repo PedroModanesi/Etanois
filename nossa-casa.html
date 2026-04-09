@@ -86,22 +86,48 @@
       align-items: start;
     }
     .location-map {
-      aspect-ratio: 1/1;
-      background: var(--black3);
-      border: 1px solid #222;
+      position: relative;
       border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid #222;
+      aspect-ratio: 1/1;
+    }
+    .location-map iframe {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border: 0;
+      filter: grayscale(1) invert(0.9) contrast(1.05);
+    }
+    .location-map__overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(10,10,10,.85), transparent);
+      padding: 1rem 1.25rem;
       display: flex;
       align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: .5rem;
-      color: var(--gray2);
-      font-size: .8rem;
+      justify-content: space-between;
+      gap: .75rem;
+    }
+    .location-map__label {
       font-family: 'Barlow Condensed', sans-serif;
+      font-size: .82rem;
+      font-weight: 700;
       letter-spacing: .1em;
       text-transform: uppercase;
+      color: var(--white);
     }
-    .location-map span { font-size: 3rem; }
+    .location-map__open {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      white-space: nowrap;
+      transition: opacity var(--transition);
+    }
+    .location-map__open:hover { opacity: .75; }
 
     .info-row { display: flex; flex-direction: column; gap: .75rem; }
     .info-item {
@@ -208,8 +234,17 @@
   <div class="container">
     <div class="location-info">
       <div class="location-map">
-        <span>📍</span>
-        Mapa da Localização
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3749.123!2d-43.2281!3d-19.6227!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa6baa10b8f8fef%3A0x0!2sBairro+Amazonas%2C+Itabira+-+MG!5e0!3m2!1spt-BR!2sbr!4v1"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Localização da ETANOIS — Bairro Amazonas, Itabira MG">
+        </iframe>
+        <div class="location-map__overlay">
+          <span class="location-map__label">📍 Bairro Amazonas · Itabira, MG</span>
+          <a href="https://www.google.com/maps/search/Bairro+Amazonas,+Itabira,+MG" target="_blank" rel="noopener" class="location-map__open">Abrir no Maps →</a>
+        </div>
       </div>
       <div>
         <div class="section-header">
@@ -218,13 +253,13 @@
           <div class="divider"></div>
         </div>
         <div class="info-row" style="margin-top:1.5rem;">
-          <div class="info-item">
+          <a href="https://www.google.com/maps/search/Bairro+Amazonas,+Itabira,+MG" target="_blank" rel="noopener" class="info-item" style="text-decoration:none; cursor:pointer;">
             <div class="info-item__icon">📍</div>
             <div>
-              <div class="info-item__label">Endereço</div>
-              <div class="info-item__value">Bairro Amazonas · Itabira – MG</div>
+              <div class="info-item__label">Endereço <span style="font-size:.65rem; color:var(--gray2);">— clique para abrir no Maps</span></div>
+              <div class="info-item__value" style="color:var(--yellow);">Bairro Amazonas · Itabira – MG ↗</div>
             </div>
-          </div>
+          </a>
           <div class="info-item">
             <div class="info-item__icon">🎓</div>
             <div>
