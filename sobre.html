@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sobre — ETANOIS República Universitária</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    .value-card {
+      background: var(--black2);
+      border: 1px solid #222;
+      border-left: 3px solid var(--yellow);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+    }
+    .value-card__title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: .5rem;
+    }
+    .value-card__text { font-size: .92rem; color: var(--gray); line-height: 1.7; }
+
+    .history-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .history-img {
+      aspect-ratio: 1/1;
+      background: var(--black3);
+      border-radius: var(--radius);
+      border: 1px solid #222;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: .5rem;
+      color: var(--gray2);
+      font-size: .8rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .history-img span { font-size: 3rem; }
+
+    .quote-block {
+      border-left: 4px solid var(--yellow);
+      padding: 1.5rem 2rem;
+      background: var(--black2);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin: 2rem 0;
+    }
+    .quote-block p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--white);
+      font-style: italic;
+    }
+    .quote-block cite {
+      display: block;
+      margin-top: .75rem;
+      font-size: .82rem;
+      color: var(--yellow);
+      font-style: normal;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    @media(max-width:640px){
+      .values-grid { grid-template-columns: 1fr; }
+      .history-block { grid-template-columns: 1fr; gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container navbar__inner">
+    <a href="index.html" class="navbar__logo"><span>ETANOIS</span>.</a>
+    <ul class="navbar__menu" id="navMenu">
+      <li><a href="sobre.html" class="active">Sobre</a></li>
+      <li><a href="futebol.html">Futebol</a></li>
+      <li><a href="nossa-casa.html">Nossa Casa</a></li>
+      <li><a href="galeria.html">Galeria</a></li>
+      <li><a href="resenha.html">Resenha</a></li>
+      <li><a href="moradores.html">Moradores</a></li>
+      <li><a href="ex-moradores.html">Ex-Moradores</a></li>
+    </ul>
+    <button class="navbar__toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="container page-hero__inner">
+    <p class="page-hero__label">República Universitária · UNIFEI Itabira</p>
+    <h1 class="page-hero__title">Sobre a <span style="color:var(--yellow)">ETANOIS</span></h1>
+    <p class="page-hero__sub">Conheça nossa história, nossos valores e tudo o que nos une desde 2012.</p>
+  </div>
+</div>
+
+<!-- STATS -->
+<section class="section--sm" style="background:var(--black2); border-bottom: 1px solid #1a1a1a;">
+  <div class="container">
+    <div class="stats-bar" style="justify-content: center; gap: 4rem;">
+      <div class="stat text-center">
+        <div class="stat__number">2012</div>
+        <div class="stat__label">Ano de Fundação</div>
+      </div>
+      <div class="stat text-center">
+        <div class="stat__number">+12</div>
+        <div class="stat__label">Anos de História</div>
+      </div>
+      <div class="stat text-center">
+        <div class="stat__number">+30</div>
+        <div class="stat__label">Moradores ao longo do tempo</div>
+      </div>
+      <div class="stat text-center">
+        <div class="stat__number">∞</div>
+        <div class="stat__label">Amizades Formadas</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HISTÓRIA -->
+<section class="section">
+  <div class="container">
+    <div class="history-block">
+      <div class="history-img">
+        <span>🏠</span>
+        Foto da Casa
+      </div>
+      <div>
+        <div class="section-header">
+          <p class="label">Nossa História</p>
+          <h2>De onde viemos</h2>
+          <div class="divider"></div>
+        </div>
+        <p style="color:var(--gray); line-height:1.8; margin-top:1rem;">
+          A ETANOIS nasceu em 2012 com um grupo de estudantes da UNIFEI Itabira que buscavam mais do que um lugar para morar — queriam uma família. Ao longo de mais de uma década, a república cresceu, evoluiu e se tornou uma referência entre os universitários da cidade.
+        </p>
+        <div class="quote-block">
+          <p>"Aqui não é só rep, é a segunda casa de todo mundo que já passou por ela."</p>
+          <cite>— Morador veterano, turma de 2015</cite>
+        </div>
+        <p style="color:var(--gray); line-height:1.8;">
+          Localizada no Bairro Amazonas, a poucos minutos do campus, a ETANOIS já recebeu dezenas de moradores, formou engenheiros e acima de tudo cultivou amizades que duram para sempre.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALORES -->
+<section class="section" style="background:var(--black2); border-top:1px solid #1a1a1a;">
+  <div class="container">
+    <div class="section-header text-center">
+      <p class="label">O que nos define</p>
+      <h2>Nossos <span class="yellow">Valores</span></h2>
+      <div class="divider divider--center"></div>
+      <p style="margin:.75rem auto 0;">O que faz da ETANOIS muito mais do que uma república.</p>
+    </div>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-card__title">⚽ Futebol</div>
+        <div class="value-card__text">A paixão pelo esporte une os moradores desde sempre. Peladas semanais, campeonatos do InterRep e muita rivalidade saudável fazem parte da nossa rotina.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card__title">🤝 Irmandade</div>
+        <div class="value-card__text">Mais do que colegas de moradia, somos irmãos. A convivência diária cria laços que vão além da universidade e duram a vida toda.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card__title">🎓 Compromisso Acadêmico</div>
+        <div class="value-card__text">Estudamos juntos, nos ajudamos nas dificuldades e comemoramos as conquistas. O ambiente da rep favorece o crescimento acadêmico e profissional.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card__title">🍖 Resenha</div>
+        <div class="value-card__text">Churrascos, jogos, festas e confraternizações fazem parte da cultura da ETANOIS. Aqui, sempre tem motivo para reunir todo mundo.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card__title">🏠 Lar</div>
+        <div class="value-card__text">Cuidamos da casa como cuidamos uns dos outros. A ETANOIS é um espaço acolhedor onde cada morador se sente em casa desde o primeiro dia.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-card__title">📍 Tradição</div>
+        <div class="value-card__text">12 anos de história se traduzem em tradições que são passadas de geração em geração. Cada morador que entra se torna parte dessa história.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section--sm" style="border-top:1px solid #1a1a1a;">
+  <div class="container text-center">
+    <h2 class="display" style="font-size:clamp(2rem,5vw,3.5rem);">Quer fazer parte?</h2>
+    <p style="color:var(--gray); margin-top:.75rem; max-width:460px; margin-left:auto; margin-right:auto;">Conheça a nossa casa e venha fazer parte dessa história.</p>
+    <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:2rem;">
+      <a href="nossa-casa.html" class="btn btn--primary">Ver a Casa</a>
+      <a href="moradores.html" class="btn btn--outline">Conhecer o Time</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__logo"><span>ETANOIS</span>.</div>
+        <p class="footer__desc">República Universitária em Itabira, MG. Formando engenheiros e amigos desde 2012.</p>
+      </div>
+      <div>
+        <div class="footer__heading">Páginas</div>
+        <ul class="footer__links">
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="futebol.html">Futebol</a></li>
+          <li><a href="nossa-casa.html">Nossa Casa</a></li>
+          <li><a href="galeria.html">Galeria</a></li>
+          <li><a href="resenha.html">Resenha</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__heading">Membros</div>
+        <ul class="footer__links">
+          <li><a href="moradores.html">Moradores</a></li>
+          <li><a href="ex-moradores.html">Ex-Moradores</a></li>
+        </ul>
+        <div class="footer__heading" style="margin-top:1.5rem;">Contato</div>
+        <ul class="footer__links">
+          <li><a href="https://instagram.com/repetanoisunifei" target="_blank">@repetanoisunifei</a></li>
+          <li><span style="color:var(--gray);">Bairro Amazonas · Itabira – MG</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2012–2026 ETANOIS República Universitária</span>
+      <span>UNIFEI Itabira · Itabira, MG</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('navToggle').addEventListener('click', () => {
+    document.getElementById('navMenu').classList.toggle('open');
+  });
+</script>
+</body>
+</html>

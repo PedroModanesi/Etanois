@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ex-Moradores — ETANOIS República Universitária</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Filtro por turma */
+    .era-filter {
+      display: flex;
+      gap: .75rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+    .era-btn {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: .4rem 1.1rem;
+      border-radius: 2rem;
+      border: 1px solid #333;
+      background: transparent;
+      color: var(--gray);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .era-btn:hover, .era-btn.active {
+      background: var(--yellow);
+      color: var(--black);
+      border-color: var(--yellow);
+    }
+
+    /* Grid de ex-moradores */
+    .alumni-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .alumni-card {
+      background: var(--black2);
+      border: 1px solid #222;
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform var(--transition), border-color var(--transition);
+    }
+    .alumni-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--yellow);
+    }
+    .alumni-card__photo {
+      aspect-ratio: 1/1;
+      background: var(--black3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      border-bottom: 1px solid #222;
+      position: relative;
+    }
+    .alumni-card__photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      position: absolute;
+      inset: 0;
+    }
+    .alumni-card__year-badge {
+      position: absolute;
+      top: .6rem; right: .6rem;
+    }
+    .alumni-card__body { padding: 1.25rem; }
+    .alumni-card__name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .alumni-card__nick {
+      font-size: .8rem;
+      color: var(--yellow);
+      margin-top: .1rem;
+    }
+    .alumni-card__meta {
+      margin-top: .6rem;
+      display: flex;
+      flex-direction: column;
+      gap: .2rem;
+    }
+    .alumni-card__meta-item {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .78rem;
+      color: var(--gray);
+    }
+    .alumni-card__meta-item span { font-size: .85rem; }
+    .alumni-card__quote {
+      margin-top: .75rem;
+      padding-top: .75rem;
+      border-top: 1px solid #2a2a2a;
+      font-size: .82rem;
+      color: var(--gray);
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    /* Turma section header */
+    .turma-header {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 1.75rem;
+      margin-top: 3.5rem;
+    }
+    .turma-header:first-child { margin-top: 0; }
+    .turma-header__year {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 3.5rem;
+      color: var(--yellow);
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .turma-header__line {
+      flex: 1;
+      height: 1px;
+      background: #222;
+    }
+    .turma-header__label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gray2);
+      flex-shrink: 0;
+    }
+
+    /* Legado/stats gerais */
+    .legacy-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    .legacy-stat {
+      background: var(--black2);
+      border: 1px solid #222;
+      border-top: 3px solid var(--yellow);
+      border-radius: var(--radius);
+      padding: 1.75rem 1.5rem;
+      text-align: center;
+    }
+    .legacy-stat__num {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 3rem;
+      color: var(--yellow);
+      line-height: 1;
+    }
+    .legacy-stat__lbl {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-top: .3rem;
+    }
+
+    @media(max-width:1100px){ .alumni-grid { grid-template-columns: repeat(3,1fr); } .legacy-stats { grid-template-columns: repeat(2,1fr); } }
+    @media(max-width:768px) { .alumni-grid { grid-template-columns: repeat(2,1fr); } }
+    @media(max-width:480px) { .alumni-grid { grid-template-columns: 1fr; } .legacy-stats { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container navbar__inner">
+    <a href="index.html" class="navbar__logo"><span>ETANOIS</span>.</a>
+    <ul class="navbar__menu" id="navMenu">
+      <li><a href="sobre.html">Sobre</a></li>
+      <li><a href="futebol.html">Futebol</a></li>
+      <li><a href="nossa-casa.html">Nossa Casa</a></li>
+      <li><a href="galeria.html">Galeria</a></li>
+      <li><a href="resenha.html">Resenha</a></li>
+      <li><a href="moradores.html">Moradores</a></li>
+      <li><a href="ex-moradores.html" class="active">Ex-Moradores</a></li>
+    </ul>
+    <button class="navbar__toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container page-hero__inner">
+    <p class="page-hero__label">Legado & Memória · 2012–2024</p>
+    <h1 class="page-hero__title">Ex-<span style="color:var(--yellow)">Moradores</span></h1>
+    <p class="page-hero__sub">Os veteranos que construíram a ETANOIS. Uma vez Etanois, sempre Etanois.</p>
+  </div>
+</div>
+
+<!-- STATS DO LEGADO -->
+<section class="section--sm" style="background:var(--black2); border-bottom:1px solid #1a1a1a;">
+  <div class="container">
+    <div class="legacy-stats">
+      <div class="legacy-stat">
+        <div class="legacy-stat__num">2012</div>
+        <div class="legacy-stat__lbl">Primeira Turma</div>
+      </div>
+      <div class="legacy-stat">
+        <div class="legacy-stat__num">+30</div>
+        <div class="legacy-stat__lbl">Ex-Moradores</div>
+      </div>
+      <div class="legacy-stat">
+        <div class="legacy-stat__num">100%</div>
+        <div class="legacy-stat__lbl">Formados</div>
+      </div>
+      <div class="legacy-stat">
+        <div class="legacy-stat__num">∞</div>
+        <div class="legacy-stat__lbl">Amizades</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EX-MORADORES POR TURMA -->
+<section class="section">
+  <div class="container">
+
+    <!-- Filtro por era -->
+    <div class="era-filter">
+      <button class="era-btn active">Todos</button>
+      <button class="era-btn">2012–2014</button>
+      <button class="era-btn">2015–2017</button>
+      <button class="era-btn">2018–2020</button>
+      <button class="era-btn">2021–2023</button>
+    </div>
+
+    <!--
+      =============================================
+      ADICIONE OS EX-MORADORES AQUI
+      Organize por turma usando o .turma-header.
+      Copie e cole os cards conforme necessário.
+      =============================================
+    -->
+
+    <!-- TURMA 2012–2014 -->
+    <div class="turma-header">
+      <div class="turma-header__year">2012</div>
+      <div class="turma-header__line"></div>
+      <div class="turma-header__label">Turma Fundadora</div>
+    </div>
+    <div class="alumni-grid">
+
+      <div class="alumni-card">
+        <div class="alumni-card__photo">
+          👨‍🎓
+          <!-- <img src="fotos/nome.jpg" alt="Nome" /> -->
+          <div class="alumni-card__year-badge">
+            <span class="badge badge--outline">2012–2016</span>
+          </div>
+        </div>
+        <div class="alumni-card__body">
+          <div class="alumni-card__name">Nome do Veterano</div>
+          <div class="alumni-card__nick">"Apelido"</div>
+          <div class="alumni-card__meta">
+            <div class="alumni-card__meta-item"><span>🎓</span> Engenharia Civil · UNIFEI 2016</div>
+            <div class="alumni-card__meta-item"><span>💼</span> Empresa / Cargo Atual</div>
+            <div class="alumni-card__meta-item"><span>📍</span> Cidade, Estado</div>
+          </div>
+          <div class="alumni-card__quote">"Uma frase marcante do veterano sobre a rep."</div>
+        </div>
+      </div>
+
+      <div class="alumni-card">
+        <div class="alumni-card__photo">
+          👨‍💻
+          <div class="alumni-card__year-badge">
+            <span class="badge badge--outline">2012–2017</span>
+          </div>
+        </div>
+        <div class="alumni-card__body">
+          <div class="alumni-card__name">Nome do Veterano</div>
+          <div class="alumni-card__nick">"Apelido"</div>
+          <div class="alumni-card__meta">
+            <div class="alumni-card__meta-item"><span>🎓</span> Eng. Computação · UNIFEI 2017</div>
+            <div class="alumni-card__meta-item"><span>💼</span> Empresa / Cargo Atual</div>
+            <div class="alumni-card__meta-item"><span>📍</span> Cidade, Estado</div>
+          </div>
+          <div class="alumni-card__quote">"Uma frase marcante do veterano sobre a rep."</div>
+        </div>
+      </div>
+
+      <div class="alumni-card">
+        <div class="alumni-card__photo">
+          🧑‍🔧
+          <div class="alumni-card__year-badge">
+            <span class="badge badge--outline">2013–2018</span>
+          </div>
+        </div>
+        <div class="alumni-card__body">
+          <div class="alumni-card__name">Nome do Veterano</div>
+          <div class="alumni-card__nick">"Apelido"</div>
+          <div class="alumni-card__meta">
+            <div class="alumni-card__meta-item"><span>🎓</span> Eng. Mecânica · UNIFEI 2018</div>
+            <div class="alumni-card__meta-item"><span>💼</span> Empresa / Cargo Atual</div>
+            <div class="alumni-card__meta-item"><span>📍</span> Cidade, Estado</div>
+          </div>
+          <div class="alumni-card__quote">"Uma frase marcante do veterano sobre a rep."</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TURMA 2015–2017 -->
+    <div class="turma-header">
+      <div class="turma-header__year">2015</div>
+      <div class="turma-header__line"></div>
+      <div class="turma-header__label">Turma 2015–2017</div>
+    </div>
+    <div class="alumni-grid">
+
+      <div class="alumni-card">
+        <div class="alumni-card__photo">
+          👨‍🔬
+          <div class="alumni-card__year-badge">
+            <span class="badge badge--outline">2015–2019</span>
+          </div>
+        </div>
+        <div class="alumni-card__body">
+          <div class="alumni-card__name">Nome do Veterano</div>
+          <div class="alumni-card__nick">"Apelido"</div>
+          <div class="alumni-card__meta">
+            <div class="alumni-card__meta-item"><span>🎓</span> Eng. Elétrica · UNIFEI 2019</div>
+            <div class="alumni-card__meta-item"><span>💼</span> Empresa / Cargo Atual</div>
+            <div class="alumni-card__meta-item"><span>📍</span> Cidade, Estado</div>
+          </div>
+          <div class="alumni-card__quote">"Uma frase marcante do veterano sobre a rep."</div>
+        </div>
+      </div>
+
+      <div class="alumni-card">
+        <div class="alumni-card__photo">
+          🧑‍🎓
+          <div class="alumni-card__year-badge">
+            <span class="badge badge--outline">2016–2020</span>
+          </div>
+        </div>
+        <div class="alumni-card__body">
+          <div class="alumni-card__name">Nome do Veterano</div>
+          <div class="alumni-card__nick">"Apelido"</div>
+          <div class="alumni-card__meta">
+            <div class="alumni-card__meta-item"><span>🎓</span> Eng. de Produção · UNIFEI 2020</div>
+            <div class="alumni-card__meta-item"><span>💼</span> Empresa / Cargo Atual</div>
+            <div class="alumni-card__meta-item"><span>📍</span> Cidade, Estado</div>
+          </div>
+          <div class="alumni-card__quote">"Uma frase marcante do veterano sobre a rep."</div>
+        </div>
+      </div>
+
+      <div class="alumni-card">
+        <div class="alumni-card__photo">
+          👨‍💼
+          <div class="alumni-card__year-badge">
+            <span class="badge badge--outline">2015–2020</span>
+          </div>
+        </div>
+        <div class="alumni-card__body">
+          <div class="alumni-card__name">Nome do Veterano</div>
+          <div class="alumni-card__nick">"Apelido"</div>
+          <div class="alumni-card__meta">
+            <div class="alumni-card__meta-item"><span>🎓</span> Eng. Civil · UNIFEI 2020</div>
+            <div class="alumni-card__meta-item"><span>💼</span> Empresa / Cargo Atual</div>
+            <div class="alumni-card__meta-item"><span>📍</span> Cidade, Estado</div>
+          </div>
+          <div class="alumni-card__quote">"Uma frase marcante do veterano sobre a rep."</div>
+        </div>
+      </div>
+
+      <div class="alumni-card">
+        <div class="alumni-card__photo">
+          🧑‍💻
+          <div class="alumni-card__year-badge">
+            <span class="badge badge--outline">2017–2021</span>
+          </div>
+        </div>
+        <div class="alumni-card__body">
+          <div class="alumni-card__name">Nome do Veterano</div>
+          <div class="alumni-card__nick">"Apelido"</div>
+          <div class="alumni-card__meta">
+            <div class="alumni-card__meta-item"><span>🎓</span> Eng. Computação · UNIFEI 2021</div>
+            <div class="alumni-card__meta-item"><span>💼</span> Empresa / Cargo Atual</div>
+            <div class="alumni-card__meta-item"><span>📍</span> Cidade, Estado</div>
+          </div>
+          <div class="alumni-card__quote">"Uma frase marcante do veterano sobre a rep."</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TURMA 2018–2020 -->
+    <div class="turma-header">
+      <div class="turma-header__year">2018</div>
+      <div class="turma-header__line"></div>
+      <div class="turma-header__label">Turma 2018–2020</div>
+    </div>
+    <div class="alumni-grid">
+
+      <div class="alumni-card">
+        <div class="alumni-card__photo">
+          👨‍🎓
+          <div class="alumni-card__year-badge">
+            <span class="badge badge--outline">2018–2022</span>
+          </div>
+        </div>
+        <div class="alumni-card__body">
+          <div class="alumni-card__name">Nome do Veterano</div>
+          <div class="alumni-card__nick">"Apelido"</div>
+          <div class="alumni-card__meta">
+            <div class="alumni-card__meta-item"><span>🎓</span> Eng. Mecânica · UNIFEI 2022</div>
+            <div class="alumni-card__meta-item"><span>💼</span> Empresa / Cargo Atual</div>
+            <div class="alumni-card__meta-item"><span>📍</span> Cidade, Estado</div>
+          </div>
+          <div class="alumni-card__quote">"Uma frase marcante do veterano sobre a rep."</div>
+        </div>
+      </div>
+
+      <div class="alumni-card">
+        <div class="alumni-card__photo">
+          🧑‍🔬
+          <div class="alumni-card__year-badge">
+            <span class="badge badge--outline">2019–2023</span>
+          </div>
+        </div>
+        <div class="alumni-card__body">
+          <div class="alumni-card__name">Nome do Veterano</div>
+          <div class="alumni-card__nick">"Apelido"</div>
+          <div class="alumni-card__meta">
+            <div class="alumni-card__meta-item"><span>🎓</span> Eng. Elétrica · UNIFEI 2023</div>
+            <div class="alumni-card__meta-item"><span>💼</span> Empresa / Cargo Atual</div>
+            <div class="alumni-card__meta-item"><span>📍</span> Cidade, Estado</div>
+          </div>
+          <div class="alumni-card__quote">"Uma frase marcante do veterano sobre a rep."</div>
+        </div>
+      </div>
+
+      <div class="alumni-card">
+        <div class="alumni-card__photo">
+          🧑‍💻
+          <div class="alumni-card__year-badge">
+            <span class="badge badge--outline">2020–2024</span>
+          </div>
+        </div>
+        <div class="alumni-card__body">
+          <div class="alumni-card__name">Nome do Veterano</div>
+          <div class="alumni-card__nick">"Apelido"</div>
+          <div class="alumni-card__meta">
+            <div class="alumni-card__meta-item"><span>🎓</span> Eng. Computação · UNIFEI 2024</div>
+            <div class="alumni-card__meta-item"><span>💼</span> Empresa / Cargo Atual</div>
+            <div class="alumni-card__meta-item"><span>📍</span> Cidade, Estado</div>
+          </div>
+          <div class="alumni-card__quote">"Uma frase marcante do veterano sobre a rep."</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA LEGADO -->
+<section class="section--sm" style="background:var(--black2); border-top:1px solid #1a1a1a;">
+  <div class="container text-center">
+    <p class="condensed" style="font-size:.78rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--yellow);margin-bottom:.5rem;">Uma vez Etanois</p>
+    <h2 class="display" style="font-size:clamp(2rem,5vw,3.5rem);">Sempre Etanois</h2>
+    <p style="color:var(--gray); margin-top:.75rem; max-width:520px; margin-left:auto; margin-right:auto;">
+      Seja você um ex-morador que quer ser adicionado à lista ou alguém que quer conhecer mais sobre nossa história — fale com a gente.
+    </p>
+    <a href="https://instagram.com/repetanoisunifei" target="_blank" rel="noopener" class="btn btn--primary" style="margin-top:2rem;">
+      Falar com a Rep
+    </a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__logo"><span>ETANOIS</span>.</div>
+        <p class="footer__desc">República Universitária em Itabira, MG. Formando engenheiros e amigos desde 2012.</p>
+      </div>
+      <div>
+        <div class="footer__heading">Páginas</div>
+        <ul class="footer__links">
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="futebol.html">Futebol</a></li>
+          <li><a href="nossa-casa.html">Nossa Casa</a></li>
+          <li><a href="galeria.html">Galeria</a></li>
+          <li><a href="resenha.html">Resenha</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__heading">Membros</div>
+        <ul class="footer__links">
+          <li><a href="moradores.html">Moradores</a></li>
+          <li><a href="ex-moradores.html">Ex-Moradores</a></li>
+        </ul>
+        <div class="footer__heading" style="margin-top:1.5rem;">Contato</div>
+        <ul class="footer__links">
+          <li><a href="https://instagram.com/repetanoisunifei" target="_blank">@repetanoisunifei</a></li>
+          <li><span style="color:var(--gray);">Bairro Amazonas · Itabira – MG</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2012–2026 ETANOIS República Universitária</span>
+      <span>UNIFEI Itabira · Itabira, MG</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('navToggle').addEventListener('click', () => {
+    document.getElementById('navMenu').classList.toggle('open');
+  });
+
+  // Filtro por era (visual — expandir com lógica real quando dados reais estiverem disponíveis)
+  document.querySelectorAll('.era-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.era-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Futebol — ETANOIS República Universitária</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .football-banner {
+      background: var(--yellow);
+      padding: 2.5rem 0;
+      text-align: center;
+    }
+    .football-banner h2 {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      color: var(--black);
+      letter-spacing: .04em;
+      line-height: 1;
+    }
+    .football-banner p {
+      color: rgba(10,10,10,.65);
+      margin-top: .5rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-size: .9rem;
+    }
+
+    .interrep-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .interrep-visual {
+      aspect-ratio: 4/3;
+      background: var(--black3);
+      border-radius: var(--radius);
+      border: 1px solid #222;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: .5rem;
+      color: var(--gray2);
+      font-size: .8rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .interrep-visual span { font-size: 4rem; }
+
+    .match-schedule {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .match-card {
+      background: var(--black2);
+      border: 1px solid #222;
+      border-radius: var(--radius);
+      padding: 1.75rem 1.5rem;
+      text-align: center;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .match-card:hover { border-color: var(--yellow); transform: translateY(-4px); }
+    .match-card__day {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.8rem;
+      color: var(--yellow);
+      letter-spacing: .04em;
+    }
+    .match-card__title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin: .4rem 0;
+    }
+    .match-card__desc { font-size: .88rem; color: var(--gray); }
+
+    .trophy-row {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .trophy {
+      flex: 1;
+      min-width: 180px;
+      background: var(--black2);
+      border: 1px solid #222;
+      border-top: 3px solid var(--yellow);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .trophy__icon { font-size: 2.5rem; margin-bottom: .5rem; }
+    .trophy__title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: .3rem;
+    }
+    .trophy__desc { font-size: .85rem; color: var(--gray); }
+
+    @media(max-width:900px){
+      .interrep-block { grid-template-columns: 1fr; gap: 2rem; }
+      .match-schedule { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container navbar__inner">
+    <a href="index.html" class="navbar__logo"><span>ETANOIS</span>.</a>
+    <ul class="navbar__menu" id="navMenu">
+      <li><a href="sobre.html">Sobre</a></li>
+      <li><a href="futebol.html" class="active">Futebol</a></li>
+      <li><a href="nossa-casa.html">Nossa Casa</a></li>
+      <li><a href="galeria.html">Galeria</a></li>
+      <li><a href="resenha.html">Resenha</a></li>
+      <li><a href="moradores.html">Moradores</a></li>
+      <li><a href="ex-moradores.html">Ex-Moradores</a></li>
+    </ul>
+    <button class="navbar__toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container page-hero__inner">
+    <p class="page-hero__label">Tradição & Paixão</p>
+    <h1 class="page-hero__title">Futebol na <span style="color:var(--yellow)">Veia</span></h1>
+    <p class="page-hero__sub">Do treino informal ao InterRep, o futebol sempre esteve no DNA da ETANOIS.</p>
+  </div>
+</div>
+
+<!-- FOOTBALL BANNER -->
+<div class="football-banner">
+  <h2>O Esporte nos Une</h2>
+  <p>República · Peladas · InterRep · Campeonatos</p>
+</div>
+
+<!-- INTERREP -->
+<section class="section">
+  <div class="container">
+    <div class="interrep-block">
+      <div class="interrep-visual">
+        <span>🏆</span>
+        Foto do InterRep
+      </div>
+      <div>
+        <div class="section-header">
+          <p class="label">Competição Oficial</p>
+          <h2>Inter<span class="yellow">Rep</span></h2>
+          <div class="divider"></div>
+        </div>
+        <p style="color:var(--gray); line-height:1.8; margin-top:1rem;">
+          O InterRep é a principal competição entre repúblicas da UNIFEI Itabira. A ETANOIS participa com orgulho desde as primeiras edições, levando não só talento em campo, mas também muita garra e espírito de equipe.
+        </p>
+        <p style="color:var(--gray); line-height:1.8; margin-top:1rem;">
+          Cada jogo do InterRep movimenta toda a rep: os que jogam, os que torcem e os que organizam a festa pós-jogo. É mais do que um campeonato — é um evento que fortalece os laços entre os moradores.
+        </p>
+        <div style="display:flex; gap:2rem; flex-wrap:wrap; margin-top:2rem;">
+          <div class="stat">
+            <div class="stat__number">+10</div>
+            <div class="stat__label">Edições Disputadas</div>
+          </div>
+          <div class="stat">
+            <div class="stat__number">100%</div>
+            <div class="stat__label">Raça em Campo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TROFÉUS / CONQUISTAS -->
+<section class="section--sm" style="background:var(--black2); border-top:1px solid #1a1a1a; border-bottom:1px solid #1a1a1a;">
+  <div class="container">
+    <div class="section-header text-center">
+      <p class="label">Conquistas</p>
+      <h2>Nossa <span class="yellow">História</span> em Campo</h2>
+      <div class="divider divider--center"></div>
+    </div>
+    <div class="trophy-row">
+      <div class="trophy">
+        <div class="trophy__icon">🏆</div>
+        <div class="trophy__title">InterRep</div>
+        <div class="trophy__desc">Participação em todas as edições do campeonato inter-repúblicas da UNIFEI.</div>
+      </div>
+      <div class="trophy">
+        <div class="trophy__icon">⚽</div>
+        <div class="trophy__title">Peladas Semanais</div>
+        <div class="trophy__desc">Todo final de semana tem jogo. É tradição que nenhum morador abre mão.</div>
+      </div>
+      <div class="trophy">
+        <div class="trophy__icon">📺</div>
+        <div class="trophy__title">Jogo dos Grandes</div>
+        <div class="trophy__desc">Reunimos a rep inteira pra assistir os maiores jogos do futebol nacional e internacional.</div>
+      </div>
+      <div class="trophy">
+        <div class="trophy__icon">🎽</div>
+        <div class="trophy__title">Time Oficial</div>
+        <div class="trophy__desc">Uniforme, escalação, táticas — a ETANOIS leva futebol a sério dentro e fora de campo.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMAÇÃO -->
+<section class="section">
+  <div class="container">
+    <div class="section-header text-center">
+      <p class="label">Rotina</p>
+      <h2>Calendário <span class="yellow">Futebolístico</span></h2>
+      <div class="divider divider--center"></div>
+      <p style="margin:.75rem auto 0;">Como o futebol se encaixa na rotina da ETANOIS.</p>
+    </div>
+    <div class="match-schedule">
+      <div class="match-card">
+        <div class="match-card__day">SAB</div>
+        <div class="match-card__title">Pelada Semanal</div>
+        <div class="match-card__desc">Todo sábado de manhã, racha informal com moradores e convidados. Níveis variados, divertimento garantido.</div>
+      </div>
+      <div class="match-card">
+        <div class="match-card__day">DOM</div>
+        <div class="match-card__title">Jogo na TV</div>
+        <div class="match-card__desc">Domingo é dia de reunir a rep para assistir futebol, com churrasco e muita discussão tática.</div>
+      </div>
+      <div class="match-card">
+        <div class="match-card__day">ANUAL</div>
+        <div class="match-card__title">InterRep</div>
+        <div class="match-card__desc">O grande evento do ano. Campeonato oficial entre repúblicas, com tabela, fases e final emocionante.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__logo"><span>ETANOIS</span>.</div>
+        <p class="footer__desc">República Universitária em Itabira, MG. Formando engenheiros e amigos desde 2012.</p>
+      </div>
+      <div>
+        <div class="footer__heading">Páginas</div>
+        <ul class="footer__links">
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="futebol.html">Futebol</a></li>
+          <li><a href="nossa-casa.html">Nossa Casa</a></li>
+          <li><a href="galeria.html">Galeria</a></li>
+          <li><a href="resenha.html">Resenha</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__heading">Membros</div>
+        <ul class="footer__links">
+          <li><a href="moradores.html">Moradores</a></li>
+          <li><a href="ex-moradores.html">Ex-Moradores</a></li>
+        </ul>
+        <div class="footer__heading" style="margin-top:1.5rem;">Contato</div>
+        <ul class="footer__links">
+          <li><a href="https://instagram.com/repetanoisunifei" target="_blank">@repetanoisunifei</a></li>
+          <li><span style="color:var(--gray);">Bairro Amazonas · Itabira – MG</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2012–2026 ETANOIS República Universitária</span>
+      <span>UNIFEI Itabira · Itabira, MG</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('navToggle').addEventListener('click', () => {
+    document.getElementById('navMenu').classList.toggle('open');
+  });
+</script>
+</body>
+</html>

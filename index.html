@@ -3,922 +3,519 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>República ETANOIS – UNIFEI Itabira</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500&display=swap" rel="stylesheet" />
+  <title>ETANOIS — República Universitária · UNIFEI Itabira</title>
+  <meta name="description" content="ETANOIS República Universitária — Mais de 12 anos de história, amizade e resenha em Itabira, MG." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
   <style>
-    /* ── Reset & Base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --black:   #0a0a0a;
-      --deep:    #111111;
-      --card:    #181818;
-      --yellow:  #F5C400;
-      --gold:    #D4A900;
-      --white:   #F0EDE6;
-      --gray:    #888;
-      --font-display: 'Bebas Neue', sans-serif;
-      --font-head:    'Barlow Condensed', sans-serif;
-      --font-body:    'Barlow', sans-serif;
-    }
-    html { scroll-behavior: smooth; }
-    body {
-      background: var(--black);
-      color: var(--white);
-      font-family: var(--font-body);
-      overflow-x: hidden;
-    }
-    ::selection { background: var(--yellow); color: var(--black); }
-
-    /* ── Scrollbar ── */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: var(--black); }
-    ::-webkit-scrollbar-thumb { background: var(--yellow); border-radius: 3px; }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1.2rem 4rem;
-      background: rgba(10,10,10,.92);
-      backdrop-filter: blur(10px);
-      border-bottom: 2px solid var(--yellow);
-    }
-    .nav-logo {
-      font-family: var(--font-display);
-      font-size: 1.8rem;
-      letter-spacing: 4px;
-      color: var(--yellow);
-      text-decoration: none;
-    }
-    .nav-logo span { color: var(--white); }
-    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-    .nav-links a {
-      font-family: var(--font-head);
-      font-size: 1rem;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--white);
-      text-decoration: none;
-      transition: color .2s;
-    }
-    .nav-links a:hover { color: var(--yellow); }
-
-    /* ── HERO ── */
-    #hero {
+    /* ── Hero ── */
+    .hero {
       min-height: 100vh;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      padding-top: 80px;
-    }
-    .hero-bg {
-      position: absolute; inset: 0;
-      background: 
-        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(245,196,0,.12) 0%, transparent 70%),
-        radial-gradient(ellipse 60% 40% at 20% 80%, rgba(245,196,0,.06) 0%, transparent 60%),
-        var(--black);
-    }
-    /* diagonal stripe pattern */
-    .hero-bg::after {
-      content: '';
-      position: absolute; inset: 0;
-      background-image: repeating-linear-gradient(
-        -45deg,
-        transparent, transparent 40px,
-        rgba(245,196,0,.03) 40px, rgba(245,196,0,.03) 41px
-      );
-    }
-    .hero-content { position: relative; z-index: 1; }
-    .hero-tag {
-      display: inline-block;
-      font-family: var(--font-head);
-      font-size: .85rem;
-      font-weight: 700;
-      letter-spacing: 5px;
-      text-transform: uppercase;
-      color: var(--yellow);
-      border: 1px solid var(--yellow);
-      padding: .4rem 1.2rem;
-      margin-bottom: 1.5rem;
-      animation: fadeUp .8s ease both;
-    }
-    .hero-title {
-      font-family: var(--font-display);
-      font-size: clamp(6rem, 18vw, 16rem);
-      line-height: .88;
-      letter-spacing: -2px;
-      color: var(--white);
-      animation: fadeUp .9s .1s ease both;
-    }
-    .hero-title .yellow { color: var(--yellow); }
-    .hero-subtitle {
-      font-family: var(--font-head);
-      font-size: clamp(1rem, 2.5vw, 1.6rem);
-      font-weight: 400;
-      letter-spacing: 6px;
-      text-transform: uppercase;
-      color: var(--gray);
-      margin-top: 1rem;
-      animation: fadeUp 1s .2s ease both;
-    }
-    .hero-divider {
-      width: 80px; height: 3px;
-      background: var(--yellow);
-      margin: 2rem auto;
-      animation: scaleX .8s .3s ease both;
-      transform-origin: left;
-    }
-    .hero-stats {
-      display: flex; gap: 4rem; justify-content: center; flex-wrap: wrap;
-      animation: fadeUp 1s .4s ease both;
-    }
-    .stat { text-align: center; }
-    .stat-number {
-      font-family: var(--font-display);
-      font-size: 3.5rem;
-      color: var(--yellow);
-      line-height: 1;
-    }
-    .stat-label {
-      font-family: var(--font-head);
-      font-size: .8rem;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--gray);
-      margin-top: .3rem;
-    }
-    .hero-cta {
-      margin-top: 3rem;
-      display: flex; gap: 1rem; justify-content: center;
-      animation: fadeUp 1s .5s ease both;
-    }
-    .btn {
-      font-family: var(--font-head);
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      padding: .9rem 2.4rem;
-      border: 2px solid var(--yellow);
-      cursor: pointer;
-      text-decoration: none;
-      transition: all .25s;
-      display: inline-block;
-    }
-    .btn-primary { background: var(--yellow); color: var(--black); }
-    .btn-primary:hover { background: var(--gold); border-color: var(--gold); }
-    .btn-outline { background: transparent; color: var(--yellow); }
-    .btn-outline:hover { background: var(--yellow); color: var(--black); }
-
-    /* ── SECTION BASE ── */
-    section { padding: 7rem 2rem; }
-    .container { max-width: 1200px; margin: 0 auto; }
-    .section-label {
-      font-family: var(--font-head);
-      font-size: .8rem;
-      letter-spacing: 5px;
-      text-transform: uppercase;
-      color: var(--yellow);
-      margin-bottom: .8rem;
-    }
-    .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(3rem, 7vw, 5.5rem);
-      line-height: 1;
-      color: var(--white);
-      margin-bottom: 1.5rem;
-    }
-    .section-title .accent { color: var(--yellow); }
-    .section-divider {
-      width: 60px; height: 3px;
-      background: var(--yellow);
-      margin-bottom: 2.5rem;
-    }
-    .section-text {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      color: #bbb;
-      max-width: 620px;
-    }
-
-    /* ── SOBRE ── */
-    #sobre { background: var(--deep); }
-    .sobre-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-    }
-    .sobre-image {
-      position: relative;
-    }
-    .sobre-image-frame {
-      width: 100%;
-      aspect-ratio: 4/5;
-      background: var(--card);
-      border: 2px solid var(--yellow);
-      position: relative;
-      overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .sobre-image-frame img {
-      width: 100%; height: 100%; object-fit: cover;
-    }
-    .sobre-image-placeholder {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 1rem; color: var(--gray);
-    }
-    .sobre-image-placeholder svg { opacity: .3; }
-    .sobre-image-placeholder p {
-      font-family: var(--font-head);
-      font-size: .85rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      opacity: .5;
-    }
-    .sobre-badge {
-      position: absolute; bottom: -1.5rem; right: -1.5rem;
-      width: 130px; height: 130px;
-      background: var(--yellow);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-    }
-    .sobre-badge-year {
-      font-family: var(--font-display);
-      font-size: 2.8rem;
-      color: var(--black);
-      line-height: 1;
-    }
-    .sobre-badge-label {
-      font-family: var(--font-head);
-      font-size: .65rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--black);
-    }
-    .sobre-features {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 1.5rem; margin-top: 2.5rem;
-    }
-    .feature-card {
-      background: var(--card);
-      border-left: 3px solid var(--yellow);
-      padding: 1.2rem 1.5rem;
-    }
-    .feature-card h4 {
-      font-family: var(--font-head);
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--yellow);
-      margin-bottom: .5rem;
-    }
-    .feature-card p { font-size: .9rem; color: #999; line-height: 1.6; }
-
-    /* ── FUTEBOL ── */
-    #futebol {
-      background: var(--black);
-      position: relative;
-      overflow: hidden;
-    }
-    #futebol::before {
-      content: 'FUTEBOL';
-      position: absolute;
-      font-family: var(--font-display);
-      font-size: 22vw;
-      color: rgba(245,196,0,.04);
-      top: 50%; left: 50%;
-      transform: translate(-50%,-50%);
-      white-space: nowrap;
-      pointer-events: none;
-      letter-spacing: -5px;
-    }
-    .futebol-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-      margin-top: 3rem;
-      position: relative;
-    }
-    .futebol-card {
-      background: var(--card);
-      padding: 2.5rem 2rem;
-      text-align: center;
-      border: 1px solid #222;
-      transition: border-color .3s, transform .3s;
-    }
-    .futebol-card:hover {
-      border-color: var(--yellow);
-      transform: translateY(-6px);
-    }
-    .futebol-card .icon {
-      font-size: 2.8rem;
-      margin-bottom: 1rem;
-      display: block;
-    }
-    .futebol-card h3 {
-      font-family: var(--font-display);
-      font-size: 1.8rem;
-      color: var(--yellow);
-      margin-bottom: .8rem;
-    }
-    .futebol-card p { font-size: .95rem; color: #999; line-height: 1.7; }
-
-    /* ── NOSSA CASA ── */
-    #casa { background: var(--deep); }
-    .casa-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: start;
-    }
-    .casa-info-block { margin-bottom: 2rem; }
-    .casa-info-block h4 {
-      font-family: var(--font-head);
-      font-size: 1.1rem;
-      font-weight: 700;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--yellow);
-      margin-bottom: .6rem;
-    }
-    .casa-info-block p { color: #aaa; line-height: 1.8; }
-    .casa-edit-note {
-      background: rgba(245,196,0,.08);
-      border: 1px dashed var(--yellow);
-      padding: 1.5rem;
-      margin-top: 1rem;
-      border-radius: 2px;
-    }
-    .casa-edit-note p {
-      font-family: var(--font-head);
-      font-size: .85rem;
-      letter-spacing: 1px;
-      color: var(--yellow);
-      opacity: .7;
-    }
-    .casa-photo-main {
-      width: 100%;
-      aspect-ratio: 4/3;
-      background: var(--card);
-      border: 2px solid #222;
-      display: flex; align-items: center; justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .casa-photo-main img { width: 100%; height: 100%; object-fit: cover; }
-    .photo-placeholder {
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 1rem; color: var(--gray);
-      text-align: center; padding: 2rem;
-    }
-    .photo-placeholder span {
-      font-family: var(--font-head);
-      font-size: .85rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      opacity: .5;
-    }
-    .casa-photo-sub {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 1rem; margin-top: 1rem;
-    }
-    .casa-photo-sub-item {
-      aspect-ratio: 1;
-      background: var(--card);
-      border: 2px solid #222;
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden;
-    }
-    .casa-photo-sub-item img { width: 100%; height: 100%; object-fit: cover; }
-    .casa-photo-sub-item .photo-placeholder { padding: 1rem; }
-    .casa-photo-sub-item .photo-placeholder span { font-size: .7rem; }
-
-    /* ── GALERIA ── */
-    #galeria { background: var(--black); }
-    .galeria-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-auto-rows: 240px;
-      gap: 1rem;
-      margin-top: 3rem;
-    }
-    .galeria-item {
-      background: var(--card);
-      border: 1px solid #1e1e1e;
-      overflow: hidden;
-      position: relative;
-      cursor: pointer;
-    }
-    .galeria-item img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transition: transform .5s;
-    }
-    .galeria-item:hover img { transform: scale(1.08); }
-    .galeria-item.tall { grid-row: span 2; }
-    .galeria-item.wide { grid-column: span 2; }
-    .galeria-overlay {
-      position: absolute; inset: 0;
-      background: rgba(10,10,10,.6);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: .5rem;
-    }
-    .galeria-overlay svg { opacity: .4; }
-    .galeria-overlay span {
-      font-family: var(--font-head);
-      font-size: .75rem;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--gray);
-      opacity: .7;
-    }
-    .galeria-item:hover .galeria-overlay { background: rgba(245,196,0,.15); }
-    .galeria-caption {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      background: linear-gradient(transparent, rgba(0,0,0,.8));
-      padding: 1.5rem 1rem .8rem;
-      transform: translateY(100%);
-      transition: transform .3s;
-    }
-    .galeria-item:hover .galeria-caption { transform: none; }
-    .galeria-caption span {
-      font-family: var(--font-head);
-      font-size: .85rem;
-      color: var(--yellow);
-      letter-spacing: 1px;
-    }
-
-    /* ── RESENHA ── */
-    #resenha {
-      background: var(--yellow);
-      padding: 6rem 2rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    #resenha::before {
-      content: '⚽';
-      position: absolute; font-size: 20vw;
-      opacity: .07; top: 50%; left: 10%;
-      transform: translateY(-50%);
-    }
-    #resenha::after {
-      content: '🍺';
-      position: absolute; font-size: 20vw;
-      opacity: .07; top: 50%; right: 10%;
-      transform: translateY(-50%);
-    }
-    #resenha .section-title { color: var(--black); position: relative; }
-    #resenha .section-label { color: var(--black); opacity: .6; }
-    #resenha .section-divider { background: var(--black); margin: 0 auto 2.5rem; }
-    #resenha .section-text {
-      color: rgba(0,0,0,.7);
-      max-width: 700px;
-      margin: 0 auto;
-      font-size: 1.2rem;
-      position: relative;
-    }
-    #resenha .btn-outline {
-      border-color: var(--black);
-      color: var(--black);
-      margin-top: 2.5rem;
-      position: relative;
-    }
-    #resenha .btn-outline:hover { background: var(--black); color: var(--yellow); }
-
-    /* ── INSTAGRAM ── */
-    #instagram { background: var(--deep); text-align: center; }
-    .instagram-handle {
-      font-family: var(--font-display);
-      font-size: clamp(2.5rem, 6vw, 5rem);
-      color: var(--yellow);
-      margin: 1rem 0 2rem;
-    }
-    .insta-link {
-      display: inline-flex; align-items: center; gap: .8rem;
-      font-family: var(--font-head);
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--yellow);
-      text-decoration: none;
-      border: 2px solid var(--yellow);
-      padding: 1rem 2.5rem;
-      transition: all .25s;
-    }
-    .insta-link:hover { background: var(--yellow); color: var(--black); }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--black);
-      border-top: 2px solid var(--yellow);
-      padding: 3rem 4rem;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      background: var(--black);
+      position: relative;
+      overflow: hidden;
+      padding-top: 68px;
     }
-    .footer-logo {
-      font-family: var(--font-display);
-      font-size: 2.5rem;
-      letter-spacing: 3px;
-      color: var(--yellow);
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 70% 40%, rgba(245,196,0,.10) 0%, transparent 60%),
+        radial-gradient(ellipse at 20% 80%, rgba(245,196,0,.05) 0%, transparent 50%);
     }
-    .footer-logo span { color: var(--white); }
-    .footer-info {
-      text-align: center;
-      font-family: var(--font-head);
-      font-size: .85rem;
-      letter-spacing: 2px;
+    .hero__bg-text {
+      position: absolute;
+      right: -2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(8rem, 20vw, 18rem);
+      line-height: 1;
+      color: rgba(245,196,0,.04);
+      pointer-events: none;
+      letter-spacing: -.02em;
+      user-select: none;
+    }
+    .hero__inner {
+      position: relative;
+      z-index: 1;
+      padding: 80px 0;
+    }
+    .hero__label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .25em;
       text-transform: uppercase;
-      color: var(--gray);
-      line-height: 1.9;
-    }
-    .footer-social a {
-      font-family: var(--font-head);
-      font-size: .9rem;
-      letter-spacing: 2px;
       color: var(--yellow);
+      margin-bottom: 1.25rem;
+      opacity: 0;
+      animation: fadeUp .6s ease .1s forwards;
+    }
+    .hero__title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(4.5rem, 12vw, 9rem);
+      line-height: 1;
+      letter-spacing: .03em;
+      opacity: 0;
+      animation: fadeUp .6s ease .25s forwards;
+    }
+    .hero__title em { color: var(--yellow); font-style: normal; }
+    .hero__sub {
+      margin-top: 1.25rem;
+      font-size: 1.1rem;
+      color: var(--gray);
+      max-width: 480px;
+      opacity: 0;
+      animation: fadeUp .6s ease .4s forwards;
+    }
+    .hero__actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 2.5rem;
+      opacity: 0;
+      animation: fadeUp .6s ease .55s forwards;
+    }
+    .hero__stats {
+      margin-top: 4rem;
+      opacity: 0;
+      animation: fadeUp .6s ease .7s forwards;
+    }
+    .hero__scroll {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .4rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .7rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gray2);
+      animation: bounce 2s infinite;
+    }
+    .hero__scroll::after {
+      content: '';
+      display: block;
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, var(--gray2), transparent);
+    }
+    @keyframes bounce {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ── Highlights strip ── */
+    .highlights {
+      background: var(--yellow);
+      padding: 20px 0;
+      overflow: hidden;
+    }
+    .highlights__track {
+      display: flex;
+      gap: 3rem;
+      white-space: nowrap;
+      animation: marquee 20s linear infinite;
+    }
+    .highlights__item {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.15rem;
+      letter-spacing: .08em;
+      color: var(--black);
+      flex-shrink: 0;
+    }
+    .highlights__item span { margin-right: 3rem; opacity: .4; }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── About preview ── */
+    .about-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-img {
+      aspect-ratio: 4/5;
+      background: var(--black3);
+      border-radius: var(--radius);
+      border: 1px solid #222;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: var(--gray2);
+      font-size: .8rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      gap: .5rem;
+      overflow: hidden;
+    }
+    .about-img__icon { font-size: 3rem; }
+    .about-badge {
+      position: absolute;
+      bottom: 1.5rem; right: 1.5rem;
+      background: var(--yellow);
+      color: var(--black);
+      padding: .75rem 1rem;
+      border-radius: var(--radius);
+      text-align: center;
+    }
+    .about-badge__num {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 2.2rem;
+      line-height: 1;
+    }
+    .about-badge__lbl {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .feature-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+    .feature-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: 1rem;
+      background: var(--black2);
+      border: 1px solid #222;
+      border-radius: var(--radius);
+      transition: border-color var(--transition);
+    }
+    .feature-item:hover { border-color: var(--yellow); }
+    .feature-item__icon { font-size: 1.4rem; flex-shrink: 0; margin-top: .1rem; }
+    .feature-item__title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: .95rem;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: .2rem;
+    }
+    .feature-item__text { font-size: .88rem; color: var(--gray); }
+
+    /* ── Pages grid ── */
+    .pages-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .page-card {
+      position: relative;
+      background: var(--black2);
+      border: 1px solid #222;
+      border-radius: var(--radius);
+      padding: 2rem 1.5rem;
+      overflow: hidden;
+      transition: border-color var(--transition), transform var(--transition);
       text-decoration: none;
+      display: block;
+    }
+    .page-card:hover { border-color: var(--yellow); transform: translateY(-4px); }
+    .page-card__num {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 4rem;
+      line-height: 1;
+      color: rgba(245,196,0,.08);
+      position: absolute;
+      top: .5rem; right: 1rem;
+    }
+    .page-card__icon { font-size: 1.8rem; margin-bottom: 1rem; }
+    .page-card__title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: .4rem;
+    }
+    .page-card__desc { font-size: .88rem; color: var(--gray); }
+    .page-card__arrow {
+      margin-top: 1.25rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--yellow);
     }
 
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to   { opacity: 1; transform: translateY(0); }
+    /* ── Instagram CTA ── */
+    .insta {
+      background: var(--black2);
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+      text-align: center;
     }
-    @keyframes scaleX {
-      from { transform: scaleX(0); }
-      to   { transform: scaleX(1); }
+    .insta__handle {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      color: var(--yellow);
+      letter-spacing: .04em;
     }
+    .insta__sub { color: var(--gray); margin-top: .5rem; }
 
-    /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { display: none; }
-      .sobre-grid, .casa-content { grid-template-columns: 1fr; gap: 3rem; }
-      .futebol-grid { grid-template-columns: 1fr; }
-      .galeria-grid { grid-template-columns: 1fr 1fr; }
-      footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+      .about-split { grid-template-columns: 1fr; gap: 3rem; }
+      .pages-grid { grid-template-columns: repeat(2, 1fr); }
     }
-    @media (max-width: 600px) {
-      .galeria-grid { grid-template-columns: 1fr; }
-      .galeria-item.tall, .galeria-item.wide { grid-column: span 1; grid-row: span 1; }
-      .hero-stats { gap: 2rem; }
+    @media (max-width: 640px) {
+      .pages-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav>
-    <a href="#hero" class="nav-logo">ETANOIS<span>.</span></a>
-    <ul class="nav-links">
-      <li><a href="#sobre">Sobre</a></li>
-      <li><a href="#futebol">Futebol</a></li>
-      <li><a href="#casa">Nossa Casa</a></li>
-      <li><a href="#galeria">Galeria</a></li>
-      <li><a href="#resenha">Resenha</a></li>
-      <li><a href="#instagram">Contato</a></li>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="container navbar__inner">
+    <a href="index.html" class="navbar__logo"><span>ETANOIS</span>.</a>
+    <ul class="navbar__menu" id="navMenu">
+      <li><a href="sobre.html">Sobre</a></li>
+      <li><a href="futebol.html">Futebol</a></li>
+      <li><a href="nossa-casa.html">Nossa Casa</a></li>
+      <li><a href="galeria.html">Galeria</a></li>
+      <li><a href="resenha.html">Resenha</a></li>
+      <li><a href="moradores.html">Moradores</a></li>
+      <li><a href="ex-moradores.html">Ex-Moradores</a></li>
     </ul>
-  </nav>
+    <button class="navbar__toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
 
-  <!-- HERO -->
-  <section id="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-content">
-      <div class="hero-tag">República Universitária · UNIFEI Itabira</div>
-      <h1 class="hero-title">
-        <span class="yellow">ETA</span>NOIS
-      </h1>
-      <p class="hero-subtitle">Bairro Amazonas · Itabira – MG</p>
-      <div class="hero-divider"></div>
-      <div class="hero-stats">
+<!-- HERO -->
+<section class="hero">
+  <div class="hero__bg-text" aria-hidden="true">ETANOIS</div>
+  <div class="container hero__inner">
+    <p class="hero__label">República Universitária · UNIFEI Itabira</p>
+    <h1 class="hero__title"><em>ETANOIS</em></h1>
+    <p class="hero__sub">Mais de 12 anos de história, amizade, futebol e muita resenha em Itabira, MG.</p>
+    <div class="hero__actions">
+      <a href="sobre.html" class="btn btn--primary">Conheça a Rep</a>
+      <a href="galeria.html" class="btn btn--outline">Ver Fotos</a>
+    </div>
+    <div class="hero__stats">
+      <div class="stats-bar">
         <div class="stat">
-          <div class="stat-number">2012</div>
-          <div class="stat-label">Fundação</div>
+          <div class="stat__number">2012</div>
+          <div class="stat__label">Fundação</div>
         </div>
         <div class="stat">
-          <div class="stat-number">+12</div>
-          <div class="stat-label">Anos de história</div>
+          <div class="stat__number">+12</div>
+          <div class="stat__label">Anos de História</div>
         </div>
         <div class="stat">
-          <div class="stat-number">∞</div>
-          <div class="stat-label">Resenhas</div>
+          <div class="stat__number">∞</div>
+          <div class="stat__label">Resenhas</div>
         </div>
-      </div>
-      <div class="hero-cta">
-        <a href="#sobre" class="btn btn-primary">Conheça a Rep</a>
-        <a href="#galeria" class="btn btn-outline">Ver Fotos</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- SOBRE -->
-  <section id="sobre">
-    <div class="container">
-      <div class="sobre-grid">
-        <div class="sobre-image">
-          <div class="sobre-image-frame">
-            <!-- Substituir pelo src da foto da república -->
-            <div class="sobre-image-placeholder">
-              <svg width="60" height="60" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
-                <polyline points="21 15 16 10 5 21"/>
-              </svg>
-              <p>Foto da República</p>
-            </div>
-          </div>
-          <div class="sobre-badge">
-            <div class="sobre-badge-year">12</div>
-            <div class="sobre-badge-label">Anos</div>
-          </div>
-        </div>
-        <div class="sobre-text">
-          <div class="section-label">Quem somos</div>
-          <h2 class="section-title">No Amazonas <span class="accent">desde 2012</span></h2>
-          <div class="section-divider"></div>
-          <p class="section-text">
-            A ETANOIS foi fundada em 2012 por estudantes da UNIFEI que moravam no bairro Amazonas. A república ficou. Hoje somos uma rep masculina no campus Itabira, com mais de 12 anos de história, muita bola rolada e um histórico de resenhas que a galera não esquece fácil.
-          </p>
-          <p class="section-text" style="margin-top: 1rem;">
-            Preto e amarelo desde o começo. Muita bola, muito churrasquinho, alguma reprovação no meio. Faz parte.
-          </p>
-          <div class="sobre-features">
-            <div class="feature-card">
-              <h4>⚽ Futebol</h4>
-              <p>Todo ano no InterRep. Nem sempre campeões, mas sempre presentes e sempre levando a sério.</p>
-            </div>
-            <div class="feature-card">
-              <h4>🎉 Resenha</h4>
-              <p>A gente abre a Semana Federal todo ano. Não foi por acaso que virou tradição.</p>
-            </div>
-            <div class="feature-card">
-              <h4>🏠 Casa</h4>
-              <p>República masculina no Amazonas. Quem mora aqui costuma ficar mais tempo do que planejava.</p>
-            </div>
-            <div class="feature-card">
-              <h4>🎓 Unifei</h4>
-              <p>Campus Itabira. A rep cresceu junto com o campus desde que a UNIFEI chegou na cidade.</p>
-            </div>
-          </div>
+        <div class="stat">
+          <div class="stat__number">1</div>
+          <div class="stat__label">InterRep</div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+  <div class="hero__scroll" aria-hidden="true">Scroll</div>
+</section>
 
-  <!-- FUTEBOL -->
-  <section id="futebol">
-    <div class="container">
-      <div class="section-label">Semanal, sem falta</div>
-      <h2 class="section-title">⚽ <span class="accent">Futebol</span> é coisa séria</h2>
-      <div class="section-divider"></div>
-      <p class="section-text">
-        Toda semana tem bola rolando, seja no rachão ou no InterRep. A gente leva o jogo a sério. A escalação é discutida, o esquema tático é debatido e quem chega atrasado fica no banco.
-      </p>
-      <div class="futebol-grid">
-        <div class="futebol-card">
-          <span class="icon">🏆</span>
-          <h3>InterRep</h3>
-          <p>O campeonato entre as repúblicas da UNIFEI Itabira. A gente se prepara o ano inteiro e leva o troféu bem a sério.</p>
-        </div>
-        <div class="futebol-card">
-          <span class="icon">⚽</span>
-          <h3>Rachão</h3>
-          <p>Toda semana tem bola rolando aqui. E toda semana alguém reclama que não foi escalado direito.</p>
-        </div>
-        <div class="futebol-card">
-          <span class="icon">📺</span>
-          <h3>Torcida</h3>
-          <p>Jogo do Brasil ou clássico do coração, a rep vira ponto de encontro. Churrasco garantido, resultado nem sempre.</p>
+<!-- HIGHLIGHTS STRIP -->
+<div class="highlights" aria-hidden="true">
+  <div class="highlights__track">
+    <span class="highlights__item">Futebol <span>✦</span></span>
+    <span class="highlights__item">Resenha <span>✦</span></span>
+    <span class="highlights__item">InterRep <span>✦</span></span>
+    <span class="highlights__item">Churrasco <span>✦</span></span>
+    <span class="highlights__item">UNIFEI Itabira <span>✦</span></span>
+    <span class="highlights__item">Semana Federal <span>✦</span></span>
+    <span class="highlights__item">Futebol <span>✦</span></span>
+    <span class="highlights__item">Resenha <span>✦</span></span>
+    <span class="highlights__item">InterRep <span>✦</span></span>
+    <span class="highlights__item">Churrasco <span>✦</span></span>
+    <span class="highlights__item">UNIFEI Itabira <span>✦</span></span>
+    <span class="highlights__item">Semana Federal <span>✦</span></span>
+  </div>
+</div>
+
+<!-- ABOUT PREVIEW -->
+<section class="section" style="background: var(--black);">
+  <div class="container">
+    <div class="about-split">
+      <div class="about-img">
+        <div class="about-img__icon">🏠</div>
+        <span>Foto da República</span>
+        <div class="about-badge">
+          <div class="about-badge__num">12+</div>
+          <div class="about-badge__lbl">Anos</div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- NOSSA CASA -->
-  <section id="casa">
-    <div class="container">
-      <div class="section-label">Onde tudo acontece</div>
-      <h2 class="section-title">Nossa <span class="accent">Casa</span></h2>
-      <div class="section-divider"></div>
-      <div class="casa-content">
-        <div>
-          <div class="casa-info-block">
-            <h4>📍 Localização</h4>
-            <p>Bairro Amazonas, Itabira. Perto do campus da UNIFEI, longe o suficiente pra festa não incomodar os professores.</p>
-          </div>
-          <div class="casa-info-block">
-            <h4>🏠 Estrutura</h4>
-            <p><!-- Adicione os detalhes da casa: número de quartos, área comum, churrasqueira, etc. -->
-            A casa tem espaços coletivos. O estudo acontece quando precisa. A resenha acontece mais.</p>
-          </div>
-          <div class="casa-info-block">
-            <h4>📢 Vagas</h4>
-            <p>Tem vaga? A gente costuma anunciar pelo Instagram. Manda mensagem lá.</p>
-          </div>
-          <div class="casa-edit-note">
-            <p>✏️ Área reservada para você adicionar mais detalhes sobre a casa — quartos, área de lazer, regras, diferenciais da república, etc.</p>
-          </div>
+      <div>
+        <div class="section-header">
+          <p class="label">Quem somos</p>
+          <h2>Uma rep com <em class="yellow">história</em></h2>
+          <div class="divider"></div>
+          <p>A ETANOIS é uma república universitária localizada no Bairro Amazonas, em Itabira – MG, a poucos passos do campus da UNIFEI. Desde 2012, formamos engenheiros e, acima de tudo, amigos para a vida.</p>
         </div>
-        <div>
-          <div class="casa-photo-main">
-            <!-- Substituir src pela foto principal da casa -->
-            <div class="photo-placeholder">
-              <svg width="50" height="50" fill="none" stroke="#555" stroke-width="1.5" viewBox="0 0 24 24">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                <polyline points="9 22 9 12 15 12 15 22"/>
-              </svg>
-              <span>Foto da Fachada</span>
+        <div class="feature-list">
+          <div class="feature-item">
+            <div class="feature-item__icon">⚽</div>
+            <div>
+              <div class="feature-item__title">Futebol na Veia</div>
+              <div class="feature-item__text">Peladas semanais e participação no InterRep, a principal competição entre repúblicas da UNIFEI.</div>
             </div>
           </div>
-          <div class="casa-photo-sub">
-            <div class="casa-photo-sub-item">
-              <div class="photo-placeholder">
-                <svg width="30" height="30" fill="none" stroke="#555" stroke-width="1.5" viewBox="0 0 24 24">
-                  <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
-                  <polyline points="21 15 16 10 5 21"/>
-                </svg>
-                <span>Área interna</span>
-              </div>
+          <div class="feature-item">
+            <div class="feature-item__icon">🍖</div>
+            <div>
+              <div class="feature-item__title">Churrascos & Festas</div>
+              <div class="feature-item__text">A resenha nunca acaba. Do churrasco de domingo à Semana Federal, sempre tem motivo pra comemorar.</div>
             </div>
-            <div class="casa-photo-sub-item">
-              <div class="photo-placeholder">
-                <svg width="30" height="30" fill="none" stroke="#555" stroke-width="1.5" viewBox="0 0 24 24">
-                  <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
-                  <polyline points="21 15 16 10 5 21"/>
-                </svg>
-                <span>Churrasqueira</span>
-              </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-item__icon">🎓</div>
+            <div>
+              <div class="feature-item__title">Vida Acadêmica</div>
+              <div class="feature-item__text">Próximos ao campus da UNIFEI, com um ambiente que equilibra estudo e diversão.</div>
             </div>
           </div>
         </div>
+        <a href="sobre.html" class="btn btn--primary mt-4" style="margin-top:2rem;">Saiba Mais</a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- GALERIA -->
-  <section id="galeria">
-    <div class="container">
-      <div class="section-label">Da rep pro feed</div>
-      <h2 class="section-title">Galeria <span class="accent">de Fotos</span></h2>
-      <div class="section-divider"></div>
-      <p class="section-text">Momentos da república. Alguns documentados, muitos não.</p>
-
-      <div class="galeria-grid">
-        <!-- Item 1: tall -->
-        <div class="galeria-item tall">
-          <!-- <img src="fotos/foto1.jpg" alt="Resenha ETANOIS" /> -->
-          <div class="galeria-overlay">
-            <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
-              <polyline points="21 15 16 10 5 21"/>
-            </svg>
-            <span>Adicionar foto</span>
-          </div>
-          <div class="galeria-caption"><span>Resenha ETANOIS</span></div>
-        </div>
-
-        <!-- Item 2 -->
-        <div class="galeria-item">
-          <div class="galeria-overlay">
-            <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
-              <polyline points="21 15 16 10 5 21"/>
-            </svg>
-            <span>Adicionar foto</span>
-          </div>
-          <div class="galeria-caption"><span>Futebol na veia</span></div>
-        </div>
-
-        <!-- Item 3 -->
-        <div class="galeria-item">
-          <div class="galeria-overlay">
-            <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
-              <polyline points="21 15 16 10 5 21"/>
-            </svg>
-            <span>Adicionar foto</span>
-          </div>
-          <div class="galeria-caption"><span>Time da república</span></div>
-        </div>
-
-        <!-- Item 4: wide -->
-        <div class="galeria-item wide">
-          <div class="galeria-overlay">
-            <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
-              <polyline points="21 15 16 10 5 21"/>
-            </svg>
-            <span>Adicionar foto</span>
-          </div>
-          <div class="galeria-caption"><span>Semana Federal</span></div>
-        </div>
-
-        <!-- Item 5 -->
-        <div class="galeria-item">
-          <div class="galeria-overlay">
-            <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
-              <polyline points="21 15 16 10 5 21"/>
-            </svg>
-            <span>Adicionar foto</span>
-          </div>
-          <div class="galeria-caption"><span>Turma de 2023</span></div>
-        </div>
-
-        <!-- Item 6 -->
-        <div class="galeria-item">
-          <div class="galeria-overlay">
-            <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
-              <polyline points="21 15 16 10 5 21"/>
-            </svg>
-            <span>Adicionar foto</span>
-          </div>
-          <div class="galeria-caption"><span>Churrasco da rep</span></div>
-        </div>
-
-        <!-- Item 7 -->
-        <div class="galeria-item">
-          <div class="galeria-overlay">
-            <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
-              <polyline points="21 15 16 10 5 21"/>
-            </svg>
-            <span>Adicionar foto</span>
-          </div>
-          <div class="galeria-caption"><span>Festa de fundação</span></div>
-        </div>
-
-        <!-- Item 8: tall -->
-        <div class="galeria-item tall">
-          <div class="galeria-overlay">
-            <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
-              <polyline points="21 15 16 10 5 21"/>
-            </svg>
-            <span>Adicionar foto</span>
-          </div>
-          <div class="galeria-caption"><span>InterRep</span></div>
-        </div>
-      </div>
+<!-- PAGES GRID -->
+<section class="section" style="background: var(--black2); border-top: 1px solid #1a1a1a;">
+  <div class="container">
+    <div class="section-header text-center">
+      <p class="label">Explore</p>
+      <h2>Tudo sobre a <em class="yellow">ETANOIS</em></h2>
+      <div class="divider divider--center"></div>
+      <p style="margin: .75rem auto 0;">Navegue pelas seções e conheça cada detalhe da nossa república.</p>
     </div>
-  </section>
-
-  <!-- RESENHA BANNER -->
-  <section id="resenha">
-    <div class="section-label">Desde 2012</div>
-    <h2 class="section-title">Resenha é o<br>que não falta</h2>
-    <div class="section-divider"></div>
-    <p class="section-text">
-      A ETANOIS abre a Semana Federal todo ano desde que a memória alcança. Open bar, muita musica. Se você foi uma vez, sabe do que estamos falando.
-    </p>
-    <a href="https://www.instagram.com/repetanoisunifei/" target="_blank" class="btn btn-outline">
-      Ver eventos no Instagram
-    </a>
-  </section>
-
-  <!-- INSTAGRAM -->
-  <section id="instagram">
-    <div class="container">
-      <div class="section-label">Nos siga</div>
-      <p class="instagram-handle">@repetanoisunifei</p>
-      <p class="section-text" style="margin: 0 auto 2.5rem; color: #888;">
-        O que rola na rep vai pro Instagram. Jogos, festas, churrascos e o dia a dia de quem mora aqui.
-      </p>
-      <a href="https://www.instagram.com/repetanoisunifei/" target="_blank" class="insta-link">
-        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-          <circle cx="12" cy="12" r="4"/>
-          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-        </svg>
-        Seguir no Instagram
+    <div class="pages-grid">
+      <a href="sobre.html" class="page-card">
+        <div class="page-card__num">01</div>
+        <div class="page-card__icon">📖</div>
+        <div class="page-card__title">Sobre</div>
+        <div class="page-card__desc">Nossa história, valores e o que nos torna únicos desde 2012.</div>
+        <div class="page-card__arrow">Ver página →</div>
+      </a>
+      <a href="futebol.html" class="page-card">
+        <div class="page-card__num">02</div>
+        <div class="page-card__icon">⚽</div>
+        <div class="page-card__title">Futebol</div>
+        <div class="page-card__desc">InterRep, peladas semanais e a tradição do futebol na ETANOIS.</div>
+        <div class="page-card__arrow">Ver página →</div>
+      </a>
+      <a href="nossa-casa.html" class="page-card">
+        <div class="page-card__num">03</div>
+        <div class="page-card__icon">🏠</div>
+        <div class="page-card__title">Nossa Casa</div>
+        <div class="page-card__desc">Estrutura, localização e informações sobre vagas na república.</div>
+        <div class="page-card__arrow">Ver página →</div>
+      </a>
+      <a href="galeria.html" class="page-card">
+        <div class="page-card__num">04</div>
+        <div class="page-card__icon">📷</div>
+        <div class="page-card__title">Galeria</div>
+        <div class="page-card__desc">Momentos especiais registrados ao longo da nossa história.</div>
+        <div class="page-card__arrow">Ver página →</div>
+      </a>
+      <a href="moradores.html" class="page-card">
+        <div class="page-card__num">05</div>
+        <div class="page-card__icon">👥</div>
+        <div class="page-card__title">Moradores</div>
+        <div class="page-card__desc">Conheça quem mora na ETANOIS hoje e o time atual da rep.</div>
+        <div class="page-card__arrow">Ver página →</div>
+      </a>
+      <a href="ex-moradores.html" class="page-card">
+        <div class="page-card__num">06</div>
+        <div class="page-card__icon">🏆</div>
+        <div class="page-card__title">Ex-Moradores</div>
+        <div class="page-card__desc">Os veteranos que ajudaram a construir a história da ETANOIS.</div>
+        <div class="page-card__arrow">Ver página →</div>
       </a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-logo">ETANOIS<span>.</span></div>
-    <div class="footer-info">
-      República ETANOIS · UNIFEI Campus Itabira<br>
-      Bairro Amazonas · Itabira – MG<br>
-      Desde 2012 · Preto e Amarelo
-    </div>
-    <div class="footer-social">
-      <a href="https://www.instagram.com/repetanoisunifei/" target="_blank">
-        @repetanoisunifei
-      </a>
-    </div>
-  </footer>
+<!-- INSTAGRAM CTA -->
+<section class="section insta">
+  <div class="container">
+    <p class="condensed" style="font-size:.78rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--yellow);margin-bottom:.5rem;">Siga a Rep</p>
+    <div class="insta__handle">@repetanoisunifei</div>
+    <p class="insta__sub">Acompanhe o dia a dia da rep, fotos das peladas e muito mais no Instagram.</p>
+    <a href="https://instagram.com/repetanoisunifei" target="_blank" rel="noopener" class="btn btn--primary mt-4" style="margin-top:2rem;">Seguir no Instagram</a>
+  </div>
+</section>
 
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__logo"><span>ETANOIS</span>.</div>
+        <p class="footer__desc">República Universitária em Itabira, MG. Formando engenheiros e amigos desde 2012.</p>
+      </div>
+      <div>
+        <div class="footer__heading">Páginas</div>
+        <ul class="footer__links">
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="futebol.html">Futebol</a></li>
+          <li><a href="nossa-casa.html">Nossa Casa</a></li>
+          <li><a href="galeria.html">Galeria</a></li>
+          <li><a href="resenha.html">Resenha</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__heading">Membros</div>
+        <ul class="footer__links">
+          <li><a href="moradores.html">Moradores</a></li>
+          <li><a href="ex-moradores.html">Ex-Moradores</a></li>
+        </ul>
+        <div class="footer__heading" style="margin-top:1.5rem;">Contato</div>
+        <ul class="footer__links">
+          <li><a href="https://instagram.com/repetanoisunifei" target="_blank">@repetanoisunifei</a></li>
+          <li><span style="color:var(--gray);">Bairro Amazonas · Itabira – MG</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2012–2026 ETANOIS República Universitária</span>
+      <span>UNIFEI Itabira · Itabira, MG</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const toggle = document.getElementById('navToggle');
+  const menu   = document.getElementById('navMenu');
+  toggle.addEventListener('click', () => menu.classList.toggle('open'));
+
+  // Active nav link
+  const links = document.querySelectorAll('.navbar__menu a');
+  const path  = location.pathname.split('/').pop() || 'index.html';
+  links.forEach(l => { if (l.getAttribute('href') === path) l.classList.add('active'); });
+</script>
 </body>
 </html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Galeria — ETANOIS República Universitária</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .filter-bar {
+      display: flex;
+      gap: .75rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+    .filter-btn {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: .4rem 1.1rem;
+      border-radius: 2rem;
+      border: 1px solid #333;
+      background: transparent;
+      color: var(--gray);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--yellow);
+      color: var(--black);
+      border-color: var(--yellow);
+    }
+
+    .masonry {
+      columns: 3;
+      column-gap: 1rem;
+    }
+    .masonry-item {
+      break-inside: avoid;
+      margin-bottom: 1rem;
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius);
+      border: 1px solid #222;
+      background: var(--black3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: .4rem;
+      cursor: pointer;
+    }
+    .masonry-item--tall  { aspect-ratio: 3/4; }
+    .masonry-item--wide  { aspect-ratio: 4/3; }
+    .masonry-item--sq    { aspect-ratio: 1/1; }
+    .masonry-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: .5rem;
+      color: var(--gray2);
+      font-size: .78rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .masonry-placeholder span { font-size: 2.2rem; }
+    .masonry-item:hover .masonry-placeholder { color: var(--gray); }
+
+    .cta-instagram {
+      background: var(--black2);
+      border: 1px solid #222;
+      border-radius: var(--radius);
+      padding: 3rem;
+      text-align: center;
+    }
+    .cta-instagram h3 {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 2.5rem;
+      color: var(--yellow);
+      letter-spacing: .04em;
+    }
+    .cta-instagram p { color: var(--gray); margin-top: .5rem; }
+
+    @media(max-width:900px){ .masonry { columns: 2; } }
+    @media(max-width:480px){ .masonry { columns: 1; } }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container navbar__inner">
+    <a href="index.html" class="navbar__logo"><span>ETANOIS</span>.</a>
+    <ul class="navbar__menu" id="navMenu">
+      <li><a href="sobre.html">Sobre</a></li>
+      <li><a href="futebol.html">Futebol</a></li>
+      <li><a href="nossa-casa.html">Nossa Casa</a></li>
+      <li><a href="galeria.html" class="active">Galeria</a></li>
+      <li><a href="resenha.html">Resenha</a></li>
+      <li><a href="moradores.html">Moradores</a></li>
+      <li><a href="ex-moradores.html">Ex-Moradores</a></li>
+    </ul>
+    <button class="navbar__toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container page-hero__inner">
+    <p class="page-hero__label">Momentos & Memórias</p>
+    <h1 class="page-hero__title">Nossa <span style="color:var(--yellow)">Galeria</span></h1>
+    <p class="page-hero__sub">Registros de mais de 12 anos de história, futebol, churrascos e muita resenha.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <!-- Filtros -->
+    <div class="filter-bar">
+      <button class="filter-btn active">Todos</button>
+      <button class="filter-btn">Futebol</button>
+      <button class="filter-btn">Churrascos</button>
+      <button class="filter-btn">Festas</button>
+      <button class="filter-btn">Casa</button>
+      <button class="filter-btn">Formatura</button>
+    </div>
+
+    <!-- Galeria masonry -->
+    <div class="masonry">
+      <div class="masonry-item masonry-item--tall">
+        <div class="masonry-placeholder"><span>⚽</span>Futebol na Veia</div>
+      </div>
+      <div class="masonry-item masonry-item--wide">
+        <div class="masonry-placeholder"><span>🍖</span>Churrasco da Rep</div>
+      </div>
+      <div class="masonry-item masonry-item--sq">
+        <div class="masonry-placeholder"><span>🏆</span>InterRep</div>
+      </div>
+      <div class="masonry-item masonry-item--wide">
+        <div class="masonry-placeholder"><span>🎉</span>Semana Federal</div>
+      </div>
+      <div class="masonry-item masonry-item--tall">
+        <div class="masonry-placeholder"><span>🏠</span>Nossa Casa</div>
+      </div>
+      <div class="masonry-item masonry-item--sq">
+        <div class="masonry-placeholder"><span>🎓</span>Formatura</div>
+      </div>
+      <div class="masonry-item masonry-item--wide">
+        <div class="masonry-placeholder"><span>🎶</span>Festa da Rep</div>
+      </div>
+      <div class="masonry-item masonry-item--sq">
+        <div class="masonry-placeholder"><span>👥</span>Turma Completa</div>
+      </div>
+      <div class="masonry-item masonry-item--tall">
+        <div class="masonry-placeholder"><span>📷</span>Resenha</div>
+      </div>
+      <div class="masonry-item masonry-item--wide">
+        <div class="masonry-placeholder"><span>⚽</span>Pelada Semanal</div>
+      </div>
+      <div class="masonry-item masonry-item--sq">
+        <div class="masonry-placeholder"><span>🌃</span>Noite da Rep</div>
+      </div>
+      <div class="masonry-item masonry-item--wide">
+        <div class="masonry-placeholder"><span>🍺</span>Confraternização</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Instagram -->
+<section class="section--sm" style="border-top:1px solid #1a1a1a;">
+  <div class="container">
+    <div class="cta-instagram">
+      <h3>@repetanoisunifei</h3>
+      <p>Mais fotos e vídeos no nosso Instagram. Siga para acompanhar o dia a dia da rep!</p>
+      <a href="https://instagram.com/repetanoisunifei" target="_blank" rel="noopener" class="btn btn--primary" style="margin-top:1.5rem;">
+        Seguir no Instagram
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__logo"><span>ETANOIS</span>.</div>
+        <p class="footer__desc">República Universitária em Itabira, MG. Formando engenheiros e amigos desde 2012.</p>
+      </div>
+      <div>
+        <div class="footer__heading">Páginas</div>
+        <ul class="footer__links">
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="futebol.html">Futebol</a></li>
+          <li><a href="nossa-casa.html">Nossa Casa</a></li>
+          <li><a href="galeria.html">Galeria</a></li>
+          <li><a href="resenha.html">Resenha</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__heading">Membros</div>
+        <ul class="footer__links">
+          <li><a href="moradores.html">Moradores</a></li>
+          <li><a href="ex-moradores.html">Ex-Moradores</a></li>
+        </ul>
+        <div class="footer__heading" style="margin-top:1.5rem;">Contato</div>
+        <ul class="footer__links">
+          <li><a href="https://instagram.com/repetanoisunifei" target="_blank">@repetanoisunifei</a></li>
+          <li><span style="color:var(--gray);">Bairro Amazonas · Itabira – MG</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2012–2026 ETANOIS República Universitária</span>
+      <span>UNIFEI Itabira · Itabira, MG</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('navToggle').addEventListener('click', () => {
+    document.getElementById('navMenu').classList.toggle('open');
+  });
+
+  // Filter buttons (visual only — connect to real data when adding images)
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

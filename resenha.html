@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resenha — ETANOIS República Universitária</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Hero especial amarelo */
+    .resenha-hero {
+      padding-top: 68px;
+      background: var(--yellow);
+      position: relative;
+      overflow: hidden;
+    }
+    .resenha-hero::before {
+      content: 'RESENHA';
+      position: absolute;
+      right: -1rem; bottom: -1rem;
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(6rem, 18vw, 14rem);
+      color: rgba(0,0,0,.06);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .resenha-hero__inner {
+      position: relative;
+      z-index: 1;
+      padding: 72px 0 64px;
+    }
+    .resenha-hero__label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(10,10,10,.55);
+      margin-bottom: .75rem;
+    }
+    .resenha-hero__title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      color: var(--black);
+      line-height: 1;
+      letter-spacing: .03em;
+    }
+    .resenha-hero__sub {
+      color: rgba(10,10,10,.65);
+      margin-top: 1rem;
+      font-size: 1.05rem;
+      max-width: 480px;
+    }
+
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .event-card {
+      background: var(--black2);
+      border: 1px solid #222;
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .event-card:hover { border-color: var(--yellow); transform: translateY(-4px); }
+    .event-card__header {
+      background: var(--black3);
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #222;
+    }
+    .event-card__icon { font-size: 2.2rem; }
+    .event-card__badge {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.1rem;
+      letter-spacing: .05em;
+      color: var(--yellow);
+    }
+    .event-card__body { padding: 1.5rem; }
+    .event-card__title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: .5rem;
+    }
+    .event-card__desc { font-size: .9rem; color: var(--gray); line-height: 1.7; }
+
+    .semana-federal {
+      background: var(--yellow);
+      border-radius: var(--radius);
+      padding: 4rem 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .semana-federal h2 {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      color: var(--black);
+      line-height: 1.05;
+      letter-spacing: .03em;
+    }
+    .semana-federal p {
+      color: rgba(10,10,10,.65);
+      margin-top: 1rem;
+      line-height: 1.7;
+    }
+    .semana-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .semana-stat {
+      background: rgba(0,0,0,.1);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .semana-stat__num {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 2.5rem;
+      color: var(--black);
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .semana-stat__lbl {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .85rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(10,10,10,.6);
+    }
+
+    .traditions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    .tradition-item {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      padding: 1.5rem;
+      background: var(--black2);
+      border: 1px solid #222;
+      border-radius: var(--radius);
+      transition: border-color var(--transition);
+    }
+    .tradition-item:hover { border-color: var(--yellow); }
+    .tradition-item__icon { font-size: 2rem; flex-shrink: 0; }
+    .tradition-item__title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: .3rem;
+    }
+    .tradition-item__text { font-size: .88rem; color: var(--gray); line-height: 1.6; }
+
+    @media(max-width:900px){
+      .events-grid { grid-template-columns: 1fr; }
+      .semana-federal { grid-template-columns: 1fr; }
+      .traditions { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container navbar__inner">
+    <a href="index.html" class="navbar__logo"><span>ETANOIS</span>.</a>
+    <ul class="navbar__menu" id="navMenu">
+      <li><a href="sobre.html">Sobre</a></li>
+      <li><a href="futebol.html">Futebol</a></li>
+      <li><a href="nossa-casa.html">Nossa Casa</a></li>
+      <li><a href="galeria.html">Galeria</a></li>
+      <li><a href="resenha.html" class="active">Resenha</a></li>
+      <li><a href="moradores.html">Moradores</a></li>
+      <li><a href="ex-moradores.html">Ex-Moradores</a></li>
+    </ul>
+    <button class="navbar__toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO ESPECIAL -->
+<div class="resenha-hero">
+  <div class="container resenha-hero__inner">
+    <p class="resenha-hero__label">ETANOIS · Cultura e Diversão</p>
+    <h1 class="resenha-hero__title">Resenha é<br>o que não falta</h1>
+    <p class="resenha-hero__sub">Churrascos, festas, jogos e confraternizações. Na ETANOIS, sempre tem um motivo pra reunir todo mundo.</p>
+    <a href="#eventos" class="btn btn--ghost" style="margin-top:2rem; border-color:rgba(0,0,0,.3); color:var(--black);">Ver Eventos</a>
+  </div>
+</div>
+
+<!-- EVENTOS -->
+<section class="section" id="eventos">
+  <div class="container">
+    <div class="section-header text-center">
+      <p class="label">Programação</p>
+      <h2>Nossos <span class="yellow">Eventos</span></h2>
+      <div class="divider divider--center"></div>
+      <p style="margin:.75rem auto 0;">Os principais momentos de resenha da ETANOIS ao longo do ano.</p>
+    </div>
+    <div class="events-grid">
+      <div class="event-card">
+        <div class="event-card__header">
+          <div class="event-card__icon">🎉</div>
+          <div class="event-card__badge">ANUAL</div>
+        </div>
+        <div class="event-card__body">
+          <div class="event-card__title">Semana Federal</div>
+          <div class="event-card__desc">O maior evento da UNIFEI Itabira. A ETANOIS abre a semana com uma festa inesquecível que já virou tradição entre os universitários da cidade.</div>
+        </div>
+      </div>
+      <div class="event-card">
+        <div class="event-card__header">
+          <div class="event-card__icon">🍖</div>
+          <div class="event-card__badge">MENSAL</div>
+        </div>
+        <div class="event-card__body">
+          <div class="event-card__title">Churrasco da Rep</div>
+          <div class="event-card__desc">Todo mês tem churrasco. Moradores, amigos, ex-moradores e mais — a churrasqueira da ETANOIS está sempre acesa.</div>
+        </div>
+      </div>
+      <div class="event-card">
+        <div class="event-card__header">
+          <div class="event-card__icon">🎶</div>
+          <div class="event-card__badge">RECORRENTE</div>
+        </div>
+        <div class="event-card__body">
+          <div class="event-card__title">Festas da Rep</div>
+          <div class="event-card__desc">Festas temáticas, aniversários e celebrações especiais que reúnem toda a galera ao longo do ano.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEMANA FEDERAL DESTAQUE -->
+<section class="section--sm" style="border-top:1px solid #1a1a1a;">
+  <div class="container">
+    <div class="semana-federal">
+      <div>
+        <h2>Semana<br>Federal</h2>
+        <p>O evento que abre a Semana Federal da UNIFEI Itabira é realizado pela ETANOIS há anos. Tradição, muita música e a festa mais esperada do semestre acadêmico.</p>
+        <a href="galeria.html" class="btn btn--ghost" style="margin-top:1.5rem; border-color:rgba(0,0,0,.3); color:var(--black);">Ver Fotos</a>
+      </div>
+      <div class="semana-stats">
+        <div class="semana-stat">
+          <div class="semana-stat__num">+12</div>
+          <div class="semana-stat__lbl">Edições realizadas</div>
+        </div>
+        <div class="semana-stat">
+          <div class="semana-stat__num">∞</div>
+          <div class="semana-stat__lbl">Noites inesquecíveis</div>
+        </div>
+        <div class="semana-stat">
+          <div class="semana-stat__num">1</div>
+          <div class="semana-stat__lbl">Tradição inabalável</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRADIÇÕES -->
+<section class="section" style="border-top:1px solid #1a1a1a;">
+  <div class="container">
+    <div class="section-header text-center">
+      <p class="label">Cultura da Rep</p>
+      <h2>Nossas <span class="yellow">Tradições</span></h2>
+      <div class="divider divider--center"></div>
+      <p style="margin:.75rem auto 0;">O que define o espírito da ETANOIS além das paredes da república.</p>
+    </div>
+    <div class="traditions">
+      <div class="tradition-item">
+        <div class="tradition-item__icon">🍺</div>
+        <div>
+          <div class="tradition-item__title">Sexta da Resenha</div>
+          <div class="tradition-item__text">Toda sexta é dia de reunir a galera, colocar um som e começar o fim de semana com cheiro de bom papo.</div>
+        </div>
+      </div>
+      <div class="tradition-item">
+        <div class="tradition-item__icon">🍖</div>
+        <div>
+          <div class="tradition-item__title">Domingo do Churrasco</div>
+          <div class="tradition-item__text">A churrasqueira acende toda vez que tem jogo importante ou simplesmente quando dá vontade. Que é sempre.</div>
+        </div>
+      </div>
+      <div class="tradition-item">
+        <div class="tradition-item__icon">🎂</div>
+        <div>
+          <div class="tradition-item__title">Aniversários</div>
+          <div class="tradition-item__text">Na ETANOIS, aniversário de morador vira festa. A rep inteira celebra com música, comida e muita zoeira.</div>
+        </div>
+      </div>
+      <div class="tradition-item">
+        <div class="tradition-item__icon">🎓</div>
+        <div>
+          <div class="tradition-item__title">Formatura dos Veteranos</div>
+          <div class="tradition-item__text">Quando um morador se forma, é celebrado por todos. A passagem de uma turma para outra é um momento sagrado na rep.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__logo"><span>ETANOIS</span>.</div>
+        <p class="footer__desc">República Universitária em Itabira, MG. Formando engenheiros e amigos desde 2012.</p>
+      </div>
+      <div>
+        <div class="footer__heading">Páginas</div>
+        <ul class="footer__links">
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="futebol.html">Futebol</a></li>
+          <li><a href="nossa-casa.html">Nossa Casa</a></li>
+          <li><a href="galeria.html">Galeria</a></li>
+          <li><a href="resenha.html">Resenha</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__heading">Membros</div>
+        <ul class="footer__links">
+          <li><a href="moradores.html">Moradores</a></li>
+          <li><a href="ex-moradores.html">Ex-Moradores</a></li>
+        </ul>
+        <div class="footer__heading" style="margin-top:1.5rem;">Contato</div>
+        <ul class="footer__links">
+          <li><a href="https://instagram.com/repetanoisunifei" target="_blank">@repetanoisunifei</a></li>
+          <li><span style="color:var(--gray);">Bairro Amazonas · Itabira – MG</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2012–2026 ETANOIS República Universitária</span>
+      <span>UNIFEI Itabira · Itabira, MG</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('navToggle').addEventListener('click', () => {
+    document.getElementById('navMenu').classList.toggle('open');
+  });
+</script>
+</body>
+</html>
